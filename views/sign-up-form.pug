@@ -5,7 +5,7 @@ block content
     h1 Sign Up Today
     p Thanks for being here. Sign up to see what people are saying.
      div.container
-      form(action="post") 
+      form(action="/sign-up-form" method='post') 
         div  
           label(for='first_name') First Name
           input(type='text' id='first_name')
@@ -23,4 +23,4 @@ block content
           label(for="confirmpasssword") Confirm Password:
           input(type="text" id='confirmpassword')
         div  
-          button Submit
+          input(type="submit")
