@@ -1,0 +1,26 @@
+extends layout
+
+block content 
+  div.container  
+    h1 Sign Up Today
+    p Thanks for being here. Sign up to see what people are saying.
+     div.container
+      form(action="post") 
+        div  
+          label(for='first_name') First Name
+          input(type='text' id='first_name')
+        div  
+          label(for='last_name') Last Name
+          input(type='text' id='last_name')
+        div
+        div  
+          label(for="username") Choose Username: 
+          input(type="text" id='username')  
+        div  
+          label(for="password") Choose Password: 
+          input(type="text" id='password')
+        div  
+          label(for="confirmpasssword") Confirm Password:
+          input(type="text" id='confirmpassword')
+        div  
+          button Submit

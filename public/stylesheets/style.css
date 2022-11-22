@@ -1,6 +1,5 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin:auto
 }
 
 a {
@@ -10,4 +9,5 @@ a {
 .container{
   display:flex;
   flex-direction:column;
+  justify-content:center;
 }
