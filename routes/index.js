@@ -32,6 +32,7 @@ router.post('/sign-up-form', async function(req, res, next) {
       username: req.body.username,
       last_name: req.body.last_name,
       password: req.body.password,
+      birthday:req.body.birthday,
       messages:[]
     })
     console.log(user)

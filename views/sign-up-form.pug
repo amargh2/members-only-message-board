@@ -8,19 +8,19 @@ block content
       form(action="/sign-up-form" method='post') 
         div  
           label(for='first_name') First Name
-          input(type='text' id='first_name')
+          input(type='text' id='first_name' name='first_name')
         div  
           label(for='last_name') Last Name
-          input(type='text' id='last_name')
+          input(type='text' id='last_name' name='last_name')
         div
         div  
           label(for="username") Choose Username: 
-          input(type="text" id='username')  
+          input(type="text" id='username' name='username')  
         div  
           label(for="password") Choose Password: 
-          input(type="text" id='password')
+          input(type="text" id='password' name='password')
         div  
           label(for="confirmpasssword") Confirm Password:
-          input(type="text" id='confirmpassword')
+          input(type="text" id='confirmpassword' name='confirmpassword')
         div  
           input(type="submit")
