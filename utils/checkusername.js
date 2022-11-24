@@ -40,5 +40,4 @@ async function addUser() {
   }
 }
 
-searchUserName('pendle')
 module.exports = searchUserName()
