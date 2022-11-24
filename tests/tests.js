@@ -24,7 +24,7 @@ describe('User registration', function() {
       .send({
         first_name: 'Anthony', 
         last_name: 'Margherio',
-        username: 'ideogesis',
+        username: 'plender',
         password: 'DummyPassword2!',
         confirmpassword: 'DummyPassword2!',
         birthday:'6-16-1988'
@@ -38,7 +38,8 @@ describe('User registration', function() {
   //tests of validation
   describe('validation', function(){
     // all these tests make a request to the server
-    // the response is stored as responseObject, then inspected for error text with Chai
+    // the response is stored as responseObject, 
+    //then inspected for error text with Chai expect
     
     it('rejects bad passwords and alerts the user', async function() {
       const responseObject = await request(app)
@@ -104,6 +105,23 @@ describe('User registration', function() {
             console.log(responseObject.text)
             expect(responseObject.text).to.include('Passwords must match.')
           })
+
+        it('does not allow duplicate user names', async function(){
+          const responseObject = await request(app)
+            .post('/sign-up-form')
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .send({
+              first_name: 'Anthony', 
+              last_name: 'Margherio',
+              username: 'ideogesis',
+              password: 'DummyPassword2!',
+              confirmpassword: 'DummyPassword2!',
+              birthday:'6-16-1988'
+            })
+            console.log(responseObject.text);
+            expect(responseObject.text).to.include('is taken.')
+        })
   })
 
   //tests for the post model
@@ -114,8 +132,8 @@ describe('User registration', function() {
 
 
   //delete records, execute done callback when complete
-  after(async function (done) {
-    await User.deleteMany({}, done())
-  })
+  //after(async function (done) {
+    //await User.deleteMany({}, done())
+  //})
 
 })

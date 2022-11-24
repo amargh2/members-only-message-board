@@ -30,25 +30,35 @@ body('password').custom((value, {req}) => {
 }),
 async function(req, res, next) {
   const errors = validationResult(req);
-  !errors.isEmpty() ? res.render('sign-up-form', {errors:errors.array()}) : 
-    async () => {
+  console.log(errors)
+  if (!errors.isEmpty()) {
+    res.render('sign-up-form', {errors:errors.array()})
+  } else {
     try {
       mongoose.connect(process.env.MONGO_URI)
-      const user = new User({
-        first_name: req.body.first_name,
-        username: req.body.username,
-        last_name: req.body.last_name,
-        password: req.body.password,
-        birthday:req.body.birthday,
-        messages:[]
-      })
-    console.log(user)
-    user.save()
-    res.redirect('/')
+      if (await User.find({username: req.body.username}).lean().username !== undefined){
+        const newError = {
+          msg:'That username is taken.'
+        }
+        res.render('sign-up-form', {errors:[newError]} )
+      } else {
+        const user = new User({
+          first_name: req.body.first_name,
+          username: req.body.username,
+          last_name: req.body.last_name,
+          password: req.body.password,
+          birthday:req.body.birthday,
+          messages:[]
+        })
+        console.log(user)
+        user.save()
+        res.redirect('/')
+      }
   } catch (error) {
     res.render('error', {error:error})
   }
-}})
+  }
+})
 
 
 module.exports = router;
