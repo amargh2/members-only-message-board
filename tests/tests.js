@@ -122,6 +122,23 @@ describe('User registration', function() {
             console.log(responseObject.text);
             expect(responseObject.text).to.include('is taken.')
         })
+
+        it('repopulates the form with user input if rejected', async function() {
+          const responseObject = await request(app)
+            .post('/sign-up-form')
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .send({
+              first_name: 'Anthony', 
+              last_name: 'Margherio',
+              username: 'ideogesis',
+              password: 'DummyPassword2!',
+              confirmpassword: 'DummyPassword2!',
+              birthday:'6-16-1988'
+            })
+            console.log(responseObject)
+            expect(responseObject.text).to.include('Anthony').and.to.include('Margherio').and.to.include('ideogesis')
+        })
   })
 
   //tests for the post model

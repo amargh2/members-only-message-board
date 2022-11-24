@@ -55,7 +55,11 @@ async function(req, res, next) {
   //first run validation check; if errors, render the sign-up-form with the errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render('sign-up-form', {errors:errors.array()})
+    res.render('sign-up-form', {errors:errors.array(), 
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      username:req.body.username
+    })
   } else {
     //No errors, so continue on with the request
     try {
