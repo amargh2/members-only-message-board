@@ -12,7 +12,6 @@ const LocalStrategy = require("passport-local").Strategy;
 
 var app = express();
 
-
 // passport setup
 passport.use(new LocalStrategy(
   function(username, password, done) {
