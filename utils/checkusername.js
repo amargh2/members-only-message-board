@@ -2,6 +2,7 @@
 
 User = require('../models/user')
 const mongoose = require('mongoose');
+const Post = require('../models/post');
 require('dotenv').config()
 async function searchUserName(value) {
   //if the name exists, return false (ie an error)
@@ -37,6 +38,13 @@ async function addUser() {
     return
   } catch (err) {
     throw err
+  }
+}
+
+
+async function addPost() {
+  try {
+    const user = new post{()}
   }
 }
 
