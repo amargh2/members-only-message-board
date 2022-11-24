@@ -9,7 +9,9 @@ var usersRouter = require('./routes/users');
 const User = require('./models/user');
 const passport = require('passport')
 const LocalStrategy = require("passport-local").Strategy;
+
 var app = express();
+
 
 // passport setup
 passport.use(new LocalStrategy(

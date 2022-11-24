@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose')
 const User = require('../models/user');
-const {body, validationResult} = require('express-validator');
+const {body, validationResult, check} = require('express-validator');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'The Discourse' });
@@ -17,18 +17,18 @@ router.get('/sign-up-form', function(req, res, next) {
 })
 
 router.post('/sign-up-form', 
-body('password', 'A strong password must: ').isStrongPassword(), 
+body('password', 'A strong password must be 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one symbol.').isStrongPassword(), 
 body('username', 'Usernames must be at least 4 characters.').isLength({min:4}),
 body('first_name', 'Names must only contain alphabet characters.').isAlpha(),
 body('last_name', 'Names must only contain alphabet characters.').isAlpha(),
-body('password', 'Passwords do not match.').equals(body('confirmpassword')),
+body('password').custom((value, {req}) => {
+  if (value !== req.body.confirmpassword) {
+    throw new Error('Passwords must match.')
+  } else {
+    return true
+  }
+}),
 async function(req, res, next) {
-  //check if the form data is valid
-  /*body('first_name').isAlpha();
-  body('last_name').isAlpha();
-  body('username').isLength({min: 4})
-  body('password').isStrongPassword()
-  body('password').equals(req.body.password, req.body.confirmpassword)*/
   const errors = validationResult(req);
   !errors.isEmpty() ? res.render('sign-up-form', {errors:errors.array()}) : 
     async () => {

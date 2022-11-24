@@ -5,7 +5,11 @@ block content
     h1 Sign Up Today
     p Thanks for being here. Sign up to see what people are saying.
      div.container
-      div(id='errors')= errors ? errors.map(error => error.msg) : 'hi'
+      div(id='errors')
+        if errors
+          ul  
+            each error in errors
+              li= error.msg
       form(action="/sign-up-form" method='post') 
         div  
           label(for='first_name') First Name

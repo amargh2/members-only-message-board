@@ -8,11 +8,6 @@ const chai = require('chai');
 const { response } = require('../app');
 chai.use(require('chai-dom'))
 const fs = require('fs')
-describe('Message Board', function() {
-  it('should understand basic math', function(done) {
-    5 === 5 ? done() : done(new Error("lol math"))
-  }
-)})
 
 describe('User registration', function() {
   //connect to db before making requests
@@ -57,8 +52,7 @@ describe('User registration', function() {
           last_name: 'Margherio',
           birthday: '6-16-88'
         })
-        console.log(responseObject.text)
-        expect(responseObject.text).to.have.string('A strong password must:')
+        expect(responseObject.text).to.have.string('A strong password must')
       })
 
 
@@ -104,12 +98,20 @@ describe('User registration', function() {
               last_name: 'Margherio',
               username: 'ideogesis',
               password: 'DummyPassword2!',
-              confirmpassword: 'DummyPass4word2!',
+              confirmpassword: 'DummyPassworwwfd2!',
               birthday:'6-16-1988'
             })
-            expect(responseObject.text).to.include('Passwords do not match.')
+            console.log(responseObject.text)
+            expect(responseObject.text).to.include('Passwords must match.')
           })
   })
+
+  //tests for the post model
+
+
+  //tests for authenticated view feature
+
+
 
   //delete records, execute done callback when complete
   after(async function (done) {
