@@ -4,10 +4,13 @@ const mongoose = require('mongoose')
 const User = require('../models/user');
 const {body, validationResult, check} = require('express-validator');
 require('dotenv').config()
+const passport = require('passport')
+const bcrypt = require('bcryptjs')
+
 const user = require('../models/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'The Discourse' });
+  res.render('index', { title: 'The Discourse', user:req.user });
 });
 
 router.get('/login', function(req, res, next) {
@@ -63,22 +66,34 @@ async function(req, res, next) {
   } else {
     //No errors, so continue on with the request
     try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      console.log(hashedPassword)
       mongoose.connect(process.env.MONGO_URI)
       const user = new User({
         first_name: req.body.first_name,
         username: req.body.username,
         last_name: req.body.last_name,
-        password: req.body.password,
+        password: hashedPassword,
         birthday:req.body.birthday,
         messages:[]
       })
       user.save()
-      res.redirect('/')
+      res.redirect('/login')
       } catch (error) {
-    res.render('error', {error:error})
-  }
-  }
-})
+      res.render('error', {error:error})
+  }}
+});
+
+  //GET login form
+  router.get('/login', (req, res) => res.render('login'));
+
+  //POST login form
+  router.post('/login', 
+    passport.authenticate('local', {
+      failureRedirect:'/login',
+      successRedirect:'/'
+    })
+  );
 
 
 module.exports = router;

@@ -123,7 +123,7 @@ describe('User registration', function() {
             expect(responseObject.text).to.include('is taken.')
         })
 
-        it('repopulates the form with user input if rejected', async function() {
+        it('repopulates the form with non-sensitive user input if rejected', async function() {
           const responseObject = await request(app)
             .post('/sign-up-form')
             .set('Content-Type', 'application/json')
