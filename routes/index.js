@@ -17,10 +17,11 @@ router.get('/sign-up-form', function(req, res, next) {
 })
 
 router.post('/sign-up-form', 
-body('password').isStrongPassword(), 
-body('username').isLength({min:4}),
-body('first_name').isAlpha(),
-body('last_name').isAlpha(),
+body('password', 'A strong password must: ').isStrongPassword(), 
+body('username', 'Usernames must be at least 4 characters.').isLength({min:4}),
+body('first_name', 'Names must only contain alphabet characters.').isAlpha(),
+body('last_name', 'Names must only contain alphabet characters.').isAlpha(),
+body('password', 'Passwords do not match.').equals(body('confirmpassword')),
 async function(req, res, next) {
   //check if the form data is valid
   /*body('first_name').isAlpha();

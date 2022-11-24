@@ -57,8 +57,8 @@ describe('User registration', function() {
           last_name: 'Margherio',
           birthday: '6-16-88'
         })
-        console.log
-        expect(responseObject.text).to.have.string('Invalid password')
+        console.log(responseObject.text)
+        expect(responseObject.text).to.have.string('A strong password must:')
       })
 
 
@@ -74,26 +74,40 @@ describe('User registration', function() {
             last_name: 'Margherio',
             birthday: '6-16-88'
           })
-          expect(responseObject.text).to.include('Invalid username')
+          expect(responseObject.text).to.include('Usernames must be at least')
         })
 
 
-        it('rejects bad first and last names and alerts the user', async function(done) {
-          const responseObject = request(app)
+        it('rejects bad first and last names and alerts the user', async function() {
+          const responseObject = await request(app)
             .post('/sign-up-form')
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             .send({
               first_name: 'Anth54ony', 
-              last_name: 'Marg78herio',
+              last_name: 'Marghe7rio',
               username: 'ideogesis',
               password: 'DummyPassword2!',
               confirmpassword: 'DummyPassword2!',
               birthday:'6-16-1988'
-            }).then(response => {
-              return response
             })
-            expect(responseObject).to.include('Invalid first_name', done())
+            expect(responseObject.text).to.include('Names must only contain alphabet characters')
+          })
+
+          it('rejects mismatched passwords and provides error text', async function() { 
+            const responseObject = await request(app)
+            .post('/sign-up-form')
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .send({
+              first_name: 'Anthony', 
+              last_name: 'Margherio',
+              username: 'ideogesis',
+              password: 'DummyPassword2!',
+              confirmpassword: 'DummyPass4word2!',
+              birthday:'6-16-1988'
+            })
+            expect(responseObject.text).to.include('Passwords do not match.')
           })
   })
 
