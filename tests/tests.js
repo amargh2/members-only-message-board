@@ -7,7 +7,7 @@ const request = require('supertest');
 const chai = require('chai');
 const { response } = require('../app');
 chai.use(require('chai-dom'))
-
+const fs = require('fs')
 describe('Message Board', function() {
   it('should understand basic math', function(done) {
     5 === 5 ? done() : done(new Error("lol math"))
@@ -19,6 +19,8 @@ describe('User registration', function() {
   before(function () {
     mongoose.connect(process.env.MONGO_URI)
   })
+  
+  //make a good request and check database to ensure user creation
   it('adds new users to the database when data is valid', async function(done) {
     request(app)
       .post('/sign-up-form')
@@ -38,80 +40,61 @@ describe('User registration', function() {
     expect(user()).to.include('ideogesis', done())
   })
 
+  //tests of validation
   describe('validation', function(){
-    it('rejects bad passwords', async function(done) {
-      //sending post req to sign up form with bad password
-      const responseObject = request(app)
+    // all these tests make a request to the server
+    // the response is stored as responseObject, then inspected for error text with Chai
+    
+    it('rejects bad passwords and alerts the user', async function() {
+      const responseObject = await request(app)
         .post('/sign-up-form')
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
         .send({
           first_name:'Anthony',
-          password:'ezpw',
+          password:'rapture',
           username:'loler',
           last_name: 'Margherio',
           birthday: '6-16-88'
-        }).then(response => {
-          return response
         })
-        expect(responseObject).to.have.text('Invalid Password', done())
+        console.log
+        expect(responseObject.text).to.have.string('Invalid password')
       })
 
-      it('rejects bad passwords', async function(done) {
-        //sending post req to sign up form with bad password
-        const responseObject = request(app)
+
+      it('rejects bad usernames and alerts the user', async function() {
+        const responseObject = await request(app)
           .post('/sign-up-form')
           .set('Content-Type', 'application/json')
           .set('Accept', 'application/json')
           .send({
             first_name:'Anthony',
             password:'ezpw',
-            username:'loler',
+            username:'lol',
             last_name: 'Margherio',
             birthday: '6-16-88'
-          }).then(response => {
-            return response
           })
-          expect(responseObject).to.have.text('Invalid Password', done())
+          expect(responseObject.text).to.include('Invalid username')
         })
 
 
-        it('rejects bad passwords', async function(done) {
-          //sending post req to sign up form with bad password
+        it('rejects bad first and last names and alerts the user', async function(done) {
           const responseObject = request(app)
             .post('/sign-up-form')
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             .send({
-              first_name:'Anthony',
-              password:'ezpw',
-              username:'loler',
-              last_name: 'Margherio',
-              birthday: '6-16-88'
+              first_name: 'Anth54ony', 
+              last_name: 'Marg78herio',
+              username: 'ideogesis',
+              password: 'DummyPassword2!',
+              confirmpassword: 'DummyPassword2!',
+              birthday:'6-16-1988'
             }).then(response => {
               return response
             })
-            expect(responseObject).to.have.text('Invalid Password', done())
+            expect(responseObject).to.include('Invalid first_name', done())
           })
-
-
-          it('rejects bad passwords', async function(done) {
-            //sending post req to sign up form with bad password
-            const responseObject = request(app)
-              .post('/sign-up-form')
-              .set('Content-Type', 'application/json')
-              .set('Accept', 'application/json')
-              .send({
-                first_name:'Anthony',
-                password:'ezpw',
-                username:'loler',
-                last_name: 'Margherio',
-                birthday: '6-16-88'
-              }).then(response => {
-                return response
-              })
-              expect(responseObject).to.have.text('Invalid Password', done())
-            })
   })
 
   //delete records, execute done callback when complete

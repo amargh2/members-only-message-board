@@ -18,6 +18,9 @@ router.get('/sign-up-form', function(req, res, next) {
 
 router.post('/sign-up-form', 
 body('password').isStrongPassword(), 
+body('username').isLength({min:4}),
+body('first_name').isAlpha(),
+body('last_name').isAlpha(),
 async function(req, res, next) {
   //check if the form data is valid
   /*body('first_name').isAlpha();
@@ -26,7 +29,6 @@ async function(req, res, next) {
   body('password').isStrongPassword()
   body('password').equals(req.body.password, req.body.confirmpassword)*/
   const errors = validationResult(req);
-  console.log(errors)
   !errors.isEmpty() ? res.render('sign-up-form', {errors:errors.array()}) : 
     async () => {
     try {
