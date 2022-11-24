@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 const Post = new Schema ({
   author: {type:Schema.Types.ObjectId, ref:'user'},
   username: String,
-  password: String,
   date:String,
   message: String,
 })
