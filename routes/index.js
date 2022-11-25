@@ -1,3 +1,4 @@
+//require all the things
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose')
@@ -6,13 +7,22 @@ const {body, validationResult, check} = require('express-validator');
 require('dotenv').config()
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
+const Post = require('../models/post');
 
-const user = require('../models/user');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'The Discourse', user:req.user });
+router.get('/', async function(req, res, next) {
+  try {
+    mongoose.connect(process.env.MONGO_URI)
+    const posts = await Post.find({}).limit({val:10}).populate('author')
+    console.log(posts)
+    res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
+  } catch (err) {
+    throw err
+  }
+  
 });
 
+//GET login page
 router.get('/login', function(req, res, next) {
   res.render('login', {title: 'Please log in'})
 })
@@ -25,12 +35,15 @@ router.get('/sign-up-form', function(req, res, next) {
 //POST sign up form 
 router.post(
   '/sign-up-form', 
+  
   //all validators need to pass in the function arguments - per express-validator docs
   body('password', 'A strong password must be 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one symbol.').trim().isStrongPassword(), 
   body('username', 'Usernames must be at least 4 characters.').trim().isLength({min:4}),
   body('first_name', 'Names must only contain alphabet characters.').trim().isAlpha(),
   body('last_name', 'Names must only contain alphabet characters.').trim().isAlpha(),
+  
   //custom validator to check if the passwords match
+
   body('password').custom((value, {req}) => {
     if (value !== req.body.confirmpassword) {
       throw new Error('Passwords must match.')
@@ -38,6 +51,7 @@ router.post(
       return true
     }
   }),
+  
   //custom validator to check if username is taken
   body('username').custom(async (value) => {
       try {
