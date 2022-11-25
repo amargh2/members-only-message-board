@@ -10,7 +10,7 @@ block content
           ul  
             each error in errors
               li= error.msg
-      form(action="/sign-up-form" method='post') 
+      form(action="/register" method='post') 
         div  
           label(for='first_name') First Name
           input(type='text' id='first_name' name='first_name' value=(first_name ? first_name : ''))
