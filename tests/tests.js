@@ -18,7 +18,7 @@ describe('User registration', function() {
   //make a good request and check database to ensure user creation
   it('adds new users to the database when data is valid', async function(done) {
     request(app)
-      .post('/sign-up-form')
+      .post('/register')
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
@@ -43,7 +43,7 @@ describe('User registration', function() {
     
     it('rejects bad passwords and alerts the user', async function() {
       const responseObject = await request(app)
-        .post('/sign-up-form')
+        .post('/register')
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
         .send({
@@ -59,7 +59,7 @@ describe('User registration', function() {
 
       it('rejects bad usernames and alerts the user', async function() {
         const responseObject = await request(app)
-          .post('/sign-up-form')
+          .post('/register')
           .set('Content-Type', 'application/json')
           .set('Accept', 'application/json')
           .send({
@@ -75,7 +75,7 @@ describe('User registration', function() {
 
         it('rejects bad first and last names and alerts the user', async function() {
           const responseObject = await request(app)
-            .post('/sign-up-form')
+            .post('/register')
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             .send({
@@ -91,7 +91,7 @@ describe('User registration', function() {
 
           it('rejects mismatched passwords and provides error text', async function() { 
             const responseObject = await request(app)
-            .post('/sign-up-form')
+            .post('/register')
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             .send({
@@ -108,7 +108,7 @@ describe('User registration', function() {
 
         it('does not allow duplicate user names', async function(){
           const responseObject = await request(app)
-            .post('/sign-up-form')
+            .post('/register')
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             .send({
@@ -125,7 +125,7 @@ describe('User registration', function() {
 
         it('repopulates the form with non-sensitive user input if rejected', async function() {
           const responseObject = await request(app)
-            .post('/sign-up-form')
+            .post('/register')
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
             .send({

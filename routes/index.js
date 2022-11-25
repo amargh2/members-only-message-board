@@ -8,10 +8,12 @@ require('dotenv').config()
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
+const usersController = require('../controllers/usersController')
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   try {
+    req.user ?? res.redirect('/login')
     mongoose.connect(process.env.MONGO_URI)
     const posts = await Post.find({}).limit({val:10}).populate('author')
     console.log(posts)
@@ -28,13 +30,12 @@ router.get('/login', function(req, res, next) {
 })
 
 //GET sign up form
-router.get('/sign-up-form', function(req, res, next) {
-  res.render('sign-up-form', {title: 'Sign Up'})
+router.get('/register', function(req, res, next) {
+  res.render('register', {title: 'Sign Up'})
 })
 
 //POST sign up form 
-router.post(
-  '/sign-up-form', 
+router.post('/register',
   
   //all validators need to pass in the function arguments - per express-validator docs
   body('password', 'A strong password must be 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one symbol.').trim().isStrongPassword(), 
@@ -72,7 +73,7 @@ async function(req, res, next) {
   //first run validation check; if errors, render the sign-up-form with the errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render('sign-up-form', {errors:errors.array(), 
+    res.render('register', {errors:errors.array(), 
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       username:req.body.username
