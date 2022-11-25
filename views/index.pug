@@ -3,3 +3,6 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}, #{user.first_name} #{currentUser.last_name}
+  ul
+    each post in posts
+      li=post.message + post.author.first_name + post.author.username
