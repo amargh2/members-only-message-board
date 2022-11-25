@@ -2,6 +2,7 @@
 
 User = require('../models/user')
 const mongoose = require('mongoose');
+const { findOne } = require('../models/post');
 const Post = require('../models/post');
 require('dotenv').config()
 async function searchUserName(value) {
@@ -42,10 +43,28 @@ async function addUser() {
 }
 
 
-async function addPost() {
+async function getPost() {
   try {
-    const user = new post{()}
+    const post = await Post.findById("6380046fb17d5ea58747a7e7").populate('author')
+    console.log(post)
+    console.log(post.author, post.author.username)
+  } catch (err) {
+    throw err
   }
 }
+
+async function addPost() {
+  try {
+    const post = new Post({
+      author: await User.findOne({username:'ideogesis'}),
+      message: 'Test post.',
+      date: new Date().toLocaleDateString()
+    })
+    post.save()
+  } catch (err) {
+    throw err
+  }
+}
+getPost()
 
 module.exports = searchUserName()
