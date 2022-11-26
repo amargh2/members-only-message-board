@@ -2,7 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}, #{user.first_name} #{currentUser.last_name}
+  p Welcome to #{title}, #{currentUser.first_name} #{currentUser.last_name}
+  form(action="/post" method='post')
+    div
+      label(for='message')
+      textarea(name='message' id='message' minlength='15') 
+    div 
+      button(type='submit' id='post-button') Post
   ul
-    each post in posts
-      li=post.message + post.author.first_name + post.author.username
+    if posts  
+      each post in posts
+        li=post.message + post.author.first_name + post.author.username
+  

@@ -110,5 +110,19 @@ async function(req, res, next) {
     })
   );
 
+  router.post(
+    '/post', 
+    body('message', 'Posts must be at least 15 characters.').isLength({min:15, max:undefined}),
+    async function (req, res, next) {
+      const errors = validationResult(req)
+      !errors.isEmpty() ? res.redirect('/') : async () => {
+      try {
+        mongoose.connect()
+      } catch (err) { 
+        throw err
+      }
+    }
+    })
+
 
 module.exports = router;
