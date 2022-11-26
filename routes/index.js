@@ -8,7 +8,8 @@ require('dotenv').config()
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
-const usersController = require('../controllers/usersController')
+const usersController = require('../controllers/usersController');
+const user = require('../models/user');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -82,7 +83,6 @@ async function(req, res, next) {
     //No errors, so continue on with the request
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      console.log(hashedPassword)
       mongoose.connect(process.env.MONGO_URI)
       const user = new User({
         first_name: req.body.first_name,
@@ -115,14 +115,24 @@ async function(req, res, next) {
     body('message', 'Posts must be at least 15 characters.').isLength({min:15, max:undefined}),
     async function (req, res, next) {
       const errors = validationResult(req)
-      !errors.isEmpty() ? res.redirect('/') : async () => {
+      if (!errors.isEmpty()) {
+        res.redirect('/') 
+      }
       try {
-        mongoose.connect()
+        console.log('got to the connection routine')
+        mongoose.connect(process.env.MONGO_URI)
+        const post = new Post({
+          author:req.user.id,
+          date: new Date().toLocaleDateString(),
+          message: req.body.message
+        })
+        await post.save()
+        res.redirect('/')
       } catch (err) { 
         throw err
       }
     }
-    })
+    )
 
 
 module.exports = router;
