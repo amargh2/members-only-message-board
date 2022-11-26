@@ -7,7 +7,8 @@ const request = require('supertest');
 const chai = require('chai');
 const { response } = require('../app');
 chai.use(require('chai-dom'))
-const fs = require('fs')
+const fs = require('fs');
+const { post } = require('../routes');
 
 describe('User registration', function() {
   //connect to db before making requests
@@ -142,7 +143,33 @@ describe('User registration', function() {
   })
 
   //tests for the post model
-
+  describe('post functions', function() {
+    before(async function() {
+      mongoose.connect(process.env.local);
+      /*await request(app)
+        .post('/login')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .send({
+          username: 'ideogesis',
+          password: 'DummyPassword2!'
+        })*/
+    })
+    
+    it('allows an authenticated user to post to the main page', async function(){
+      const responseObject = await request(app)
+        .post('/post')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .send({
+          author: '6380ffa883cb392bb8854a0b',
+          date: new Date().toLocaleDateString(),
+          message: 'silly little post'
+        })
+        console.log(responseObject)
+        expect(responseObject.text).to.include('silly little post')
+    })
+  })
 
   //tests for authenticated view feature
 

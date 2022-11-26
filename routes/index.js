@@ -126,6 +126,7 @@ async function(req, res, next) {
           date: new Date().toLocaleDateString(),
           message: req.body.message
         })
+        console.log('made the post')
         await post.save()
         res.redirect('/')
       } catch (err) { 
