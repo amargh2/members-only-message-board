@@ -65,6 +65,16 @@ async function addPost() {
     throw err
   }
 }
-getPost()
+
+async function removePosts() {
+  try {
+    await Post.deleteMany({})
+    console.log('delete done')
+  } catch (err) {
+    throw err
+  }
+}
+
+removePosts()
 
 module.exports = searchUserName()
