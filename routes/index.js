@@ -14,11 +14,15 @@ const user = require('../models/user');
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   try {
-    req.user ?? res.redirect('/login')
-    mongoose.connect(process.env.MONGO_URI)
+    if (!req.user) {
+      res.redirect('/login')
+    } else {
+      mongoose.connect(process.env.MONGO_URI)
     const posts = await Post.find({}).limit({val:10}).populate('author')
     console.log(posts)
     res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
+    }
+    
   } catch (err) {
     throw err
   }
@@ -119,14 +123,13 @@ async function(req, res, next) {
         res.redirect('/') 
       }
       try {
-        console.log('got to the connection routine')
         mongoose.connect(process.env.MONGO_URI)
+        console.log('connected')
         const post = new Post({
           author:req.user.id,
           date: new Date().toLocaleDateString(),
           message: req.body.message
         })
-        console.log('made the post')
         await post.save()
         res.redirect('/')
       } catch (err) { 
