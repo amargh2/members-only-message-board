@@ -17,6 +17,6 @@ block content
         div(class='post') #{post.author.first_name} #{post.author.username}
           div #{post.message}
         div
-          div
-            button(class=post.id) Reply
+          form(action=`/posts/${post.id}`)
+            input(type='submit' value='Reply' method='get' action=`/posts/${post.id}`)
   
