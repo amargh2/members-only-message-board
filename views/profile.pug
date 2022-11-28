@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 #{user.username}'s profile
+  div
+    p #{user.first_name}
+    p #{user.bio ? user.bio : `We don't know a lot about ${user.username}, but we're sure they're great.`}
+    if posts 
+      div Post history: 
+        ul 
+          each post in posts 
+            li=post.message
+  if currentUser.username===user.username
+    button Change username.
