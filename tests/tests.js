@@ -191,9 +191,23 @@ describe('User registration', function() {
         throw err
       }  
     })
+
+      //tests for authenticated view feature
+    it('displays user information on the profile page', async function() {
+      try {
+        const response = await testUser
+          .get('/user/ideogesis')
+          .auth('ideogesis', 'DummyPassword2!')
+          .set('Content-Type', 'application/json')
+          .set('Accept', 'application/json')
+        expect(response.text).to.include('Anthony')
+      } catch (err) {
+        throw(err)
+      }
+    })
+
   })
 
-  //tests for authenticated view feature
 
 
 
