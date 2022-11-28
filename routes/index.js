@@ -4,6 +4,7 @@ var router = express.Router();
 const mongoose = require('mongoose')
 const User = require('../models/user');
 const {body, validationResult, check} = require('express-validator');
+const postsController = require('../controllers/postsController')
 require('dotenv').config()
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
@@ -138,5 +139,8 @@ async function(req, res, next) {
     //get user pofile
     router.get('/user/:username', usersController.userProfile)
 
+
+    //get a specific post
+    router.get('/posts/:postid', postsController.getPost)
 
 module.exports = router;
