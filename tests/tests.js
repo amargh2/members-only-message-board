@@ -208,6 +208,16 @@ describe('User registration', function() {
 
   })
 
+  it('displays a post to an authenticated user', async function() {
+    try {
+      mongoose.connect(process.env.MONGO_URI)
+      const response = await testUser
+        .get('/posts/638514c10a94719052aa82c9')
+      expect(response.text).to.include('silly little post')
+    } catch (err) {
+      throw(err)
+    }
+  })
 
 
 
