@@ -9,6 +9,7 @@ const { response } = require('../app');
 chai.use(require('chai-dom'))
 const fs = require('fs');
 const { post } = require('../routes');
+const testUser = request.agent(app)
 
 describe('User registration', function() {
   //connect to db before making requests
@@ -34,7 +35,7 @@ describe('User registration', function() {
       })
     const user = async () => await User.find({username:'ideogesis'}).lean()
     expect(user()).to.include('ideogesis', done())
-  })
+  })})
 
   //tests of validation
   describe('validation', function(){
@@ -103,7 +104,6 @@ describe('User registration', function() {
               confirmpassword: 'DummyPassworwwfd2!',
               birthday:'6-16-1988'
             })
-            console.log(responseObject.text)
             expect(responseObject.text).to.include('Passwords must match.')
           })
 
@@ -120,7 +120,6 @@ describe('User registration', function() {
               confirmpassword: 'DummyPassword2!',
               birthday:'6-16-1988'
             })
-            console.log(responseObject.text);
             expect(responseObject.text).to.include('is taken.')
         })
 
@@ -137,37 +136,60 @@ describe('User registration', function() {
               confirmpassword: 'DummyPassword2!',
               birthday:'6-16-1988'
             })
-            console.log(responseObject)
             expect(responseObject.text).to.include('Anthony').and.to.include('Margherio').and.to.include('ideogesis')
         })
   })
 
   //tests for the post model
   describe('post functions', function() {
+    
+    //creating an authenticated user that 'remembers' it's logged in with superagent (via supertest)
     before(async function() {
-      mongoose.connect(process.env.local);
-      /*await request(app)
+      mongoose.connect(process.env.MONGO_URI);
+      await testUser
         .post('/login')
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
+        .auth('ideogesis', 'DummyPassword2!')
         .send({
           username: 'ideogesis',
           password: 'DummyPassword2!'
-        })*/
+        })
     })
-    
-    it('allows an authenticated user to post to the main page', async function(){
-      const responseObject = await request(app)
+    //this function calls the user we just made to do an authenticated user only function
+    it('allows a user to post to the main page', async function(){
+      mongoose.connect(process.env.MONGO_URI)
+      const author = await User.findOne({username:'ideogesis'})
+      console.log(typeof(author))
+      try {
+      const response = await testUser
         .post('/post')
+        .auth('ideogesis', 'DummyPassword2!')
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
         .send({
-          author: '6380ffa883cb392bb8854a0b',
+          author: author._id,
           date: new Date().toLocaleDateString(),
           message: 'silly little post'
         })
-        console.log(responseObject)
-        expect(responseObject.text).to.include('silly little post')
+        expect(response.statusCode).to.equal(302)
+      } catch (err) {
+      } 
+    })
+
+    it('redirects unauthenticated users to the login page', async function() {
+      // to simulate an unauthenticated request, just call the app w/o agent
+      try {
+        const response = await request(app)
+          .get('/')
+          .set('Content-Type', 'application/json')
+          .set('Accept', 'application/json')
+        console.log(response)
+        expect(response.statusCode).to.equal(302)
+      }
+      catch (err) {
+        throw err
+      }  
     })
   })
 
@@ -180,4 +202,4 @@ describe('User registration', function() {
     //await User.deleteMany({}, done())
   //})
 
-})
+
