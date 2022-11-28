@@ -9,60 +9,45 @@ const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 
-exports.registerUser = async function(req, res, next) {
-    body('username', 'Usernames must be at least 4 characters.').trim().isLength({min:4}),
-    body('first_name', 'Names must only contain alphabet characters.').trim().isAlpha(),
-    body('last_name', 'Names must only contain alphabet characters.').trim().isAlpha(),
-  
-  //custom validator to check if the passwords match
+exports.registerUser = async function(req, res) {
 
-    body('password').custom((value, {req}) => {
-      if (value !== req.body.confirmpassword) {
-        throw new Error('Passwords must match.')
-      } else {
-        return true
-      }
-    }),
-  
-  //custom validator to check if username is taken
-  body('username').custom(async (value) => {
-      try {
-        mongoose.connect(process.env.MONGO_URI)
-        const user = await User.find({username:value})
-        console.log('hey hey you you' + user)
-        if (user[0] !== undefined) {
-          throw new Error('Username is taken.')
-        } else {
-          return true
-        }      
-      } catch (err) {
-        throw err
-      }
-    }),
-    (req,res) => {
-      const errors = validationResult(req);
+      //No errors, so continue on with the request
       if (!errors.isEmpty()) {
-      res.render('sign-up-form', {errors:errors.array(), 
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username:req.body.username
-      })
-    }
-    try{
-      const hashedPassword = async () => await bcrypt.hash(req.body.password, 10)
-      console.log(hashedPassword)
-      mongoose.connect(process.env.MONGO_URI)
-      const user = new User({
-      first_name: req.body.first_name,
-      username: req.body.username,
-      last_name: req.body.last_name,
-      password: hashedPassword,
-      birthday:req.body.birthday,
-      messages:[]
-    })
-    user.save()
-    res.redirect('/login')
-    } catch (error) {
-    res.render('error', {error:error})
-}}
+        res.render('register', {errors:errors.array(), 
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          username:req.body.username
+        })
+      } else {
+        //No errors, so continue on with the request
+        try {
+          const hashedPassword = await bcrypt.hash(req.body.password, 10)
+          mongoose.connect(process.env.MONGO_URI)
+          const user = new User({
+            first_name: req.body.first_name,
+            username: req.body.username,
+            last_name: req.body.last_name,
+            password: hashedPassword,
+            birthday:req.body.birthday,
+            messages:[]
+          })
+          user.save()
+          res.redirect('/login')
+          } catch (error) {
+          res.render('error', {error:error})
+      }}
+    };
+
+exports.userProfile = async  (req, res) => {
+  try {
+    mongoose.connect(process.env.MONGO_URI)
+    console.log(req.params['username'])
+    const user = await User.find({username:req.params['username']}).lean()
+    console.log(user[0])
+    const posts = await Post.find({author:user[0]._id})
+    console.log(posts)
+    res.render('profile', {user: user[0], posts:posts})
+  } catch (err) {
+    res.render('error', {error: err})
+  }
 }
