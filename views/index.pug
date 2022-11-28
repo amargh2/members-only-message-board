@@ -9,8 +9,9 @@ block content
       textarea(name='message' id='message' minlength='15') 
     div 
       button(type='submit' id='post-button') Post
-  ul
+  div(class='posts-area')
     if posts  
       each post in posts
-        li=post.message + post.author.first_name + post.author.username
+        div(class='post') #{post.author.first_name} #{post.author.username}
+          div #{post.message}
   
