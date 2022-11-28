@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+  div
+    div=post.author.first_name 
+    div=post.author.username
+  div
+    p=post.message
+  form
+    label(for="reply") 
+      textarea(type='text' placeholder=`Reply to ${post.author.username}...` minlength=15)
+    input(type='submit' action=`/posts/${post.id}/reply` method='post')
+    
