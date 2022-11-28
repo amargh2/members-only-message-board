@@ -19,7 +19,6 @@ router.get('/', async function(req, res, next) {
     } else {
       mongoose.connect(process.env.MONGO_URI)
     const posts = await Post.find({}).limit({val:10}).populate('author')
-    console.log(posts)
     res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
     }
     
@@ -63,7 +62,6 @@ router.post('/register',
       try {
         mongoose.connect(process.env.MONGO_URI)
         const user = await User.find({username:value})
-        console.log('hey hey you you' + user)
         if (user[0] !== undefined) {
           throw new Error('Username is taken.')
         } else {
@@ -124,7 +122,6 @@ async function(req, res, next) {
       }
       try {
         mongoose.connect(process.env.MONGO_URI)
-        console.log('connected')
         const post = new Post({
           author:req.user.id,
           date: new Date().toLocaleDateString(),
@@ -137,6 +134,9 @@ async function(req, res, next) {
       }
     }
     )
+
+    //get user pofile
+    router.get('/user/:username', usersController.userProfile)
 
 
 module.exports = router;
