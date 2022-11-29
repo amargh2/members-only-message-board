@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config()
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const User = require('./models/user');
 const passport = require('passport')
 const LocalStrategy = require("passport-local").Strategy;
@@ -67,7 +66,6 @@ app.use(function(req, res, next) {
 
 //ROUTES begin here
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
