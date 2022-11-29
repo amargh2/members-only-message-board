@@ -6,8 +6,10 @@ const User = new Schema ({
   last_name: String,
   username: String,
   password: String,
-  birthday: String,
-  messages: Array
+  birthday: Date,
+  posts: Array,
+  replies: Array,
+  date_created: Date,
 })
 
 module.exports = mongoose.model('User', User)

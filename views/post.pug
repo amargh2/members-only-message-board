@@ -6,8 +6,13 @@ block content
     div=post.author.username
   div
     p=post.message
-  form
+  if post.replies 
+    each reply in replies
+      div #{reply.author.name} @#{reply.author.username}
+      div= reply.message
+      
+  form(action=`/posts/${post._id}/reply` method='post')
     label(for="reply") 
-      textarea(type='text' placeholder=`Reply to ${post.author.username}...` minlength=15)
-    input(type='submit' action=`/posts/${post.id}/reply` method='post')
+    textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15)
+    input(type='submit' value='Reply')
     
