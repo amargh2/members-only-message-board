@@ -10,7 +10,6 @@ const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 const usersController = require('../controllers/usersController');
-const user = require('../models/user');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -19,7 +18,7 @@ router.get('/', async function(req, res, next) {
       res.redirect('/login')
     } else {
       mongoose.connect(process.env.MONGO_URI)
-    const posts = await Post.find({}).limit({val:10}).populate('author')
+    const posts = await Post.find().limit({val:10}).populate('author')
     res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
     }
     
@@ -142,5 +141,7 @@ async function(req, res, next) {
 
     //get a specific post
     router.get('/posts/:postid', postsController.getPost)
+
+    router.post('/posts/:postid/reply', postsController.replyToPost)
 
 module.exports = router;
