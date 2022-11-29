@@ -75,6 +75,7 @@ async function removePosts() {
   }
 }
 
+clearUsers()
 removePosts()
 
 module.exports = searchUserName()
