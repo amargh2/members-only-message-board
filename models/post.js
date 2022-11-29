@@ -9,4 +9,9 @@ const Post = new Schema ({
   reply: {type: Boolean, default:false}
 })
 
+Post.virtual('url')
+  .get(function() {
+    return `/posts/${this._id}`
+  })
+
 module.exports = mongoose.model('Post', Post)
