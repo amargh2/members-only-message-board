@@ -12,4 +12,9 @@ const User = new Schema ({
   date_created: Date,
 })
 
+User.virtual('url')
+  .get(function() {
+    return `/user/${this.username}`
+  })
+
 module.exports = mongoose.model('User', User)
