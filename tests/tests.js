@@ -8,9 +8,8 @@ const chai = require('chai');
 const { response } = require('../app');
 chai.use(require('chai-dom'))
 const fs = require('fs');
-const { post } = require('../routes');
 const testUser = request.agent(app)
-
+const Post = require('../models/post')
 describe('User registration', function() {
   //connect to db before making requests
   before(function () {
@@ -209,16 +208,30 @@ describe('User registration', function() {
   })
 
   it('displays a post to an authenticated user', async function() {
+    //originally had the hard coded url which uses object id, which changed when i cleared the db 
+    //so creating a bit more flexible test that just gets the id of the post we created further up based on text match
     try {
       mongoose.connect(process.env.MONGO_URI)
+      const post = await Post.findOne({message:'silly little post'})
       const response = await testUser
-        .get('/posts/638514c10a94719052aa82c9')
+        .get(`/posts/${post.id}`)
+        .auth('ideogesis', 'DummyPassword2!')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
       expect(response.text).to.include('silly little post')
     } catch (err) {
       throw(err)
     }
   })
 
+  it('allows authenticated users to post replies to posts', async function() {
+    try {
+      //const response = await testUser
+        //.post('/posts/')
+    } catch (err) {
+      throw err
+    }
+  })
 
 
   //delete records, execute done callback when complete
