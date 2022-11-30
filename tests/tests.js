@@ -253,13 +253,16 @@ describe('User registration', function() {
     try {
       mongoose.connect(process.env.MONGO_URI);
       const post = await Post.findOne({username:'ideogesis'})
-      const response = await testUser
-        .post(`/posts/${post._id}/delete`)
+      const id = post.id
+      console.log(id)
+      await testUser
+        .post(`/posts/${post.id}/delete`)
         .auth('ideogesis', 'DummyPassword2!')
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
-      const postAfterDeletion = await Post.findById(post._id)
-      expect(postAfterDeletion).to.be(null)
+      const postAfterDeletion = await Post.findById(post.id)
+      console.log(postAfterDeletion)
+      expect(postAfterDeletion).to.equal(null)
     } catch (err) {
       throw err
     }
