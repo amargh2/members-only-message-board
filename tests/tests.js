@@ -242,7 +242,8 @@ describe('User registration', function() {
           message: 'this is a reply',
           parent_post: post._id
         })
-      expect(response.statusCode).to.equal(302)
+      expect(response.statusCode).to.equal(302) 
+      //currently just checks the redirect happened, which means the rest of the code executed properly
     } catch (err) {
       throw(err)
     }
