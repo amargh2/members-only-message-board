@@ -8,4 +8,9 @@ const Reply = new Schema({
   parent_post: {type:Schema.Types.ObjectId, ref:'Post'}
 })
 
+Reply.virtual('url')
+  .get(function() {
+    return `/posts/${this._id}`
+  })
+
 module.exports = mongoose.model('Reply', Reply)
