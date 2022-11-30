@@ -14,8 +14,6 @@ exports.getPost = async function(req, res) {
     mongoose.connect(process.env.MONGO_URI)
     const post = await Post.findById(req.params.postid).populate('author');
     const replies = await Reply.find({parent_post:post._id}).populate('author')
-    console.log(post)
-    console.log(replies)
     res.render('post', {post: post, replies: replies})
   } catch (err) {
     throw err
@@ -24,7 +22,6 @@ exports.getPost = async function(req, res) {
 
 exports.replyToPost = async function(req, res) {
   try {
-    console.log('made it to reply to post function')
     mongoose.connect(process.env.MONGO_URI)
     const parentPost = await Post.findById(req.params.postid)
     const reply = new Reply({
@@ -33,11 +30,9 @@ exports.replyToPost = async function(req, res) {
       message: req.body.reply,
       parent_post: parentPost._id
     })
-    console.log(parentPost)
     parentPost.replies.push(reply._id)
     await parentPost.save()
     await reply.save()
-    console.log(parentPost)
     res.redirect(`/posts/${req.params.postid}`)
   } catch (err) {
     throw err
