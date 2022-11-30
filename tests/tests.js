@@ -269,9 +269,4 @@ describe('User registration', function() {
   })
 
 })
-  //delete records, execute done callback when complete
-  //after(async function (done) {
-    //await User.deleteMany({}, done())
-  //})
-
 
