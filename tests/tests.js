@@ -249,10 +249,17 @@ describe('User registration', function() {
     }
   })
 
-  it('allows authenticated users to post replies to posts', async function() {
+  it('allows a user to delete a post they wrote', async function() {
     try {
-      //const response = await testUser
-        //.post('/posts/')
+      mongoose.connect(process.env.MONGO_URI);
+      const post = await Post.findOne({username:'ideogesis'})
+      const response = await testUser
+        .post(`/posts/${post._id}/delete`)
+        .auth('ideogesis', 'DummyPassword2!')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+      const postAfterDeletion = await Post.findById(post._id)
+      expect(postAfterDeletion).to.be(null)
     } catch (err) {
       throw err
     }
