@@ -135,13 +135,16 @@ async function(req, res, next) {
     }
     )
 
-    //get user pofile
+    //GET get user pofile
     router.get('/user/:username', usersController.userProfile)
 
 
-    //get a specific post
+    //GET get a specific post
     router.get('/posts/:postid', postsController.getPost)
 
+    //POST post a reply
     router.post('/posts/:postid/reply', postsController.replyToPost)
+
+    //POST delete a post
 
 module.exports = router;
