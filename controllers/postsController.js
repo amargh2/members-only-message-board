@@ -38,3 +38,19 @@ exports.replyToPost = async function(req, res) {
     throw err
   }
 }
+
+exports.deletePost = async function (req, res) {
+  try {
+    mongoose.connect(process.env.MONGO_URI);
+    //calling post to perform final user === user check (users can't delete posts that aren't theirs)
+    const post = await Post.findById(req.params.postid).populate('author')
+    if (post.author.username === req.user.username) {
+      await Post.findByIdAndDelete(post._id)
+      res.redirect(post.author.url)
+    } else {
+      res.redirect('/')
+    }
+  } catch (err) {
+    throw err
+  }
+}
