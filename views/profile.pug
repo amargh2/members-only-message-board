@@ -6,9 +6,12 @@ block content
     p #{user.first_name}
     p #{user.bio ? user.bio : `We don't know a lot about ${user.username}, but we're sure they're great.`}
     if posts 
-      div Post history: 
-        ul 
+      div Post history:  
           each post in posts 
-            li=post.message
+            div=post.message
+            if currentUser.username === user.username 
+              form(action=post.url + '/delete', method='post')
+                div
+                  input(type='submit' value='Delete Post')
   if currentUser.username===user.username
     button Change username.
