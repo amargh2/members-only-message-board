@@ -158,10 +158,9 @@ describe('User registration', function() {
     //this function calls the user we just made to do an authenticated user only function
     it('allows a user to post to the main page', async function(){
       mongoose.connect(process.env.MONGO_URI)
-      const author = await User.findOne({username:'ideogesis'})
-      console.log(typeof(author))
       try {
-      const response = await testUser
+        const author = await User.findOne({username:'ideogesis'})
+        const response = await testUser
         .post('/post')
         .auth('ideogesis', 'DummyPassword2!')
         .set('Content-Type', 'application/json')
@@ -183,7 +182,6 @@ describe('User registration', function() {
           .get('/')
           .set('Content-Type', 'application/json')
           .set('Accept', 'application/json')
-        console.log(response)
         expect(response.statusCode).to.equal(302)
       }
       catch (err) {
@@ -205,11 +203,12 @@ describe('User registration', function() {
       }
     })
 
-  })
+  
 
   it('displays a post to an authenticated user', async function() {
     //originally had the hard coded url which uses object id, which changed when i cleared the db 
     //so creating a bit more flexible test that just gets the id of the post we created further up based on text match
+    // same story for the user id - just calling the user and getting the id
     try {
       mongoose.connect(process.env.MONGO_URI)
       const post = await Post.findOne({message:'silly little post'})
@@ -224,6 +223,31 @@ describe('User registration', function() {
     }
   })
 
+  it('allows an authenticated user to post a reply, and redirects to the post', 
+    async function() {
+    //originally had the hard coded url which uses object id, which changed when i cleared the db 
+    //so creating a bit more flexible test that just gets the id of the post we created further up based on text match
+    try {
+      mongoose.connect(process.env.MONGO_URI)
+      const author = await User.find({username:'ideogesis'})
+      const post = await Post.findOne({message:'silly little post'})
+      const response = await testUser
+        .post(`/posts/${post._id}/reply`)
+        .auth('ideogesis', 'DummyPassword2!')
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .send({
+          author: author._id,
+          date: new Date(),
+          message: 'this is a reply',
+          parent_post: post._id
+        })
+      expect(response.statusCode).to.equal(302)
+    } catch (err) {
+      throw(err)
+    }
+  })
+
   it('allows authenticated users to post replies to posts', async function() {
     try {
       //const response = await testUser
@@ -233,7 +257,7 @@ describe('User registration', function() {
     }
   })
 
-
+})
   //delete records, execute done callback when complete
   //after(async function (done) {
     //await User.deleteMany({}, done())
