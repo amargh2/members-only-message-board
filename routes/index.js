@@ -11,22 +11,10 @@ const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 const usersController = require('../controllers/usersController');
 
-/* GET home page. */
-router.get('/', async function(req, res, next) {
-  try {
-    if (!req.user) {
-      res.redirect('/login')
-    } else {
-      mongoose.connect(process.env.MONGO_URI)
-    const posts = await Post.find().limit({val:10}).populate('author')
-    res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
-    }
-    
-  } catch (err) {
-    throw err
-  }
-  
-});
+//Sign up and register get and post pages first; catch all underneath to ensure logged in users.
+
+//GET login form
+router.get('/login', (req, res) => res.render('login'));
 
 //GET login page
 router.get('/login', function(req, res, next) {
@@ -101,8 +89,7 @@ async function(req, res, next) {
   }}
 });
 
-  //GET login form
-  router.get('/login', (req, res) => res.render('login'));
+  
 
   //POST login form
   router.post('/login', 
@@ -112,7 +99,30 @@ async function(req, res, next) {
     })
   );
 
-  router.post(
+
+//catch all redirect to prevent unauthenticated users from accessing authenticated routes
+router.get('*', function(req, res, next) {
+  if(!req.user) {
+    res.redirect('/login')
+  } else {
+    next()
+  }
+})
+
+/* GET home page. */
+
+router.get('/', async function(req, res, next) {
+  try {
+    mongoose.connect(process.env.MONGO_URI)
+    const posts = await Post.find().limit({val:10}).populate('author')
+    res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
+  } catch (err) {
+    throw err
+  }
+  
+});
+
+router.post(
     '/post', 
     body('message', 'Posts must be at least 15 characters.').isLength({min:15, max:undefined}),
     async function (req, res, next) {
@@ -146,5 +156,6 @@ async function(req, res, next) {
     router.post('/posts/:postid/reply', postsController.replyToPost)
 
     //POST delete a post
+    router.post('/posts/:postid/delete', postsController.deletePost)
 
 module.exports = router;
