@@ -13,6 +13,6 @@ block content
       
   form(action=`/posts/${post._id}/reply` method='post')
     label(for="reply") 
-    textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15)
+    textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15 required=true)
     input(type='submit' value='Reply')
     
