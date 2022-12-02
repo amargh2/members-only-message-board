@@ -1,23 +1,20 @@
 extends layout
 
 block content
-  div
-    a(href=`/user/${currentUser.username}`) Profile
-  h1= title
-  p Welcome to #{title}, #{currentUser.first_name} #{currentUser.last_name}
-  form(action="/post" method='post')
-    div
-      label(for='message')
-      textarea(name='message' id='message' minlength='15') 
-    div 
-      button(type='submit' id='post-button') Post
-  div(class='posts-area')
-    if posts  
-      each post in posts
-        div(class='post') #{post.author.first_name} 
-        div #[a(href=post.author.url) #{post.author.username}]
-          div #{post.message}
+  div(class='content')
+    div.postform  
+      form(action="/post" method='post')
         div
-          form(action=`/posts/${post.id}`)
-            input(type='submit' value='Reply' method='get' action=`/posts/${post.id}`)
-    
+          label(for='message')
+          textarea(name='message' id='message' minlength='15' required) 
+        div.buttons 
+          button(type='submit' id='post-button' class='btn') Post
+      div.posts  
+        if posts  
+          each post in posts
+            div(class='post')
+              div #[a(href=post.author.url) #{post.author.username}]
+              div #{post.message}
+              div.buttons
+                form(action=`/posts/${post.id}`)
+                  input(class='btn' type='submit' value='Reply' method='get' action=`/posts/${post.id}`)

@@ -1,18 +1,22 @@
 extends layout 
 
 block content 
-  div
-    div=post.author.first_name 
-    div=post.author.username
-  div
-    p=post.message
-  if post.replies 
-    each reply in replies
-      div #{reply.author.name} @#{reply.author.username}
-      div= reply.message
-      
-  form(action=`/posts/${post._id}/reply` method='post')
-    label(for="reply") 
-    textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15 required=true)
-    input(type='submit' value='Reply')
+  div.content  
+    div.posts
+      div.post  
+        div.author
+          div=post.author.username
+        div.message
+          p=post.message
+      if post.replies 
+        div.posts
+          each reply in replies
+            div.reply.post
+              div.author #{reply.author.name} #{reply.author.username}
+              div.message= reply.message
+        form(action=`/posts/${post._id}/reply` method='post' class='postform')
+          label(for="reply") 
+          textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15 required=true)
+          div
+            input(type='submit' value='Reply').btn
     

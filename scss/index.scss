@@ -1,3 +1,139 @@
 @import '_colors';
 @import '_layout';
 @import '_forms';
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+
+
+body{
+  margin:auto;
+  background-color: white;
+  color:black;
+  font-size:large;
+}
+
+.profile {
+  display:flex;
+  flex-direction: column;
+  .post {
+    box-shadow: 0 0 0 .7rem white;
+  }
+}
+
+.btn {
+  padding: .75rem 1.5rem .75rem 1.5rem ;
+  box-shadow: 0 0 0 1px whitesmoke;
+  background-color: $blue;
+  border:.1rem white solid;
+  border-radius: .5rem;
+  color:white;
+  font-weight:bold;
+}
+
+.btn:hover {
+  background-color: $light-blue;
+  border: .1rem black solid;
+}
+.btn:focus{
+  background-color:$lavender;
+}
+
+a{
+  text-decoration:none;
+  color:black;
+}
+
+.buttons {
+  display:flex;
+  justify-content: right;
+}
+
+.postform {
+  padding: 1rem;
+  box-shadow: .3px .3px .3px .3px whitesmoke;
+  display:flex;
+  flex-direction: column;
+  textarea{
+    width: 70vw;
+    height: 100px;
+    border: .01rem solid;
+    border-radius: .7rem;
+    padding:.7rem;
+    @media (min-width:$screen-sm-min) {
+      width: 50vw;
+    }
+  }
+}
+
+.posts{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:1rem;
+  .post{
+    padding:2rem;
+    box-shadow: .3px .3px .3px .3px whitesmoke;
+    border: .1rem solid white;
+    border-radius: .2rem;
+    .author {
+      display:flex;
+    }
+    .buttons {
+      display:flex;
+      justify-content:end;
+      align-content:bottom;
+    }
+  }
+}
+
+
+.content{
+  display:flex;
+  justify-content:center;
+  @media (min-width: $screen-md-min) {
+    grid-column-start:4;
+    grid-column-end: 8;
+  }
+  
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(10, 1fr);
+  gap:1rem;
+}
+.header{
+  column-span: all;
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 11;
+  justify-content:center;
+  background-color:$blue;
+  color:white;
+  
+}
+
+
+.sidebar {
+  grid-column-start:1;
+  grid-column-end: 1;
+  padding: 1rem;
+  @media (min-width: $screen-sm-min) {
+    grid-column-start:2;
+    grid-column-end: 2;
+  }
+  .option{
+    display:flex;
+    align-items:center;
+    gap:.3rem;
+    //hides the words on small screens
+    .words {
+      display:none;
+      @media (min-width:$screen-sm-min) {
+        display:flex;
+      }
+    }
+    .icon {
+      font-size: 24px;
+    }
+  }
+}

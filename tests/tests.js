@@ -197,7 +197,7 @@ describe('User registration', function() {
           .auth('ideogesis', 'DummyPassword2!')
           .set('Content-Type', 'application/json')
           .set('Accept', 'application/json')
-        expect(response.text).to.include('Anthony')
+        expect(response.text).to.include('ideogesis')
       } catch (err) {
         throw(err)
       }
@@ -256,11 +256,11 @@ describe('User registration', function() {
       const id = post.id
       console.log(id)
       await testUser
-        .post(`/posts/${post.id}/delete`)
+        .post(`/posts/${id}/delete`)
         .auth('ideogesis', 'DummyPassword2!')
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
-      const postAfterDeletion = await Post.findById(post.id)
+      const postAfterDeletion = await Post.findById(id)
       console.log(postAfterDeletion)
       expect(postAfterDeletion).to.equal(null)
     } catch (err) {

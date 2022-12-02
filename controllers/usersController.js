@@ -41,12 +41,9 @@ exports.registerUser = async function(req, res) {
 exports.userProfile = async  (req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URI)
-    console.log(req.params['username'])
     const user = await User.find({username:req.params['username']}).lean()
-    console.log(user[0])
     const posts = await Post.find({author:user[0]._id})
-    console.log(posts)
-    res.render('profile', {user: user[0], posts:posts})
+    res.render('profile', {user: user[0], posts:posts, title:`${user[0].username}'s profile`})
   } catch (err) {
     res.render('error', {error: err})
   }
