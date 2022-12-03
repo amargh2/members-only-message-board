@@ -50,10 +50,11 @@ a{
 .postform {
   padding: 1rem;
   box-shadow: .3px .3px .3px .3px whitesmoke;
+  border: .1rem solid white;
   display:flex;
   flex-direction: column;
   textarea{
-    width: 70vw;
+    width: auto;
     height: 100px;
     border: .01rem solid;
     border-radius: .7rem;
