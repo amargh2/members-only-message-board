@@ -6,32 +6,36 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-  div.container  
-    h1 Sign Up Today
-    p Thanks for being here. Sign up to see what people are saying.
-     div.container
-      div(id='errors')
-        if errors
-          ul  
-            each error in errors
-              li= error.msg
-      form(action="/register" method='post') 
-        div  
-          label(for='first_name') First Name
-          input(type='text' id='first_name' name='first_name' value=(first_name ? first_name : ''))
-        div  
-          label(for='last_name') Last Name
-          input(type='text' id='last_name' name='last_name' value=(last_name ? last_name : ''))
-        div
-        div  
-          label(for="username") Choose Username: 
-          input(type="text" id='username' name='username' value=(username ? username : ''))  
-        div  
-          label(for="password") Choose Password: 
-          input(type="text" id='password' name='password')
-          span(id='passworderror')
-        div  
-          label(for="confirmpasssword") Confirm Password:
-          input(type="text" id='confirmpassword' name='confirmpassword')
-        div  
-          input(type="submit")
+  .header
+    h1 The Discourse
+  .register
+    .image
+      img(src='/images/typewriter-luca-dugaro.png')  
+    .registrationform  
+      h1 Sign Up Today
+      p Thanks for being here. Sign up to see what people are saying.
+      p Already have an account? #[a(href='/login') Log in here.]
+        div(id='errors')
+          if errors
+            ul  
+              each error in errors
+                li= error.msg
+        form(action="/register" method='post') 
+          div.field  
+            label(for='first_name') First Name
+            input(type='text' id='first_name' name='first_name' value=(first_name ? first_name : ''))
+          div.field  
+            label(for='last_name') Last Name
+            input(type='text' id='last_name' name='last_name' value=(last_name ? last_name : ''))
+          div.field  
+            label(for="username") Username 
+            input(type="text" id='username' name='username' value=(username ? username : ''))  
+          div.field  
+            label(for="password") Password 
+            input(type="password" id='password' name='password')
+            span(id='passworderror')
+          div.field  
+            label(for="confirmpasssword") Confirm Password
+            input(type="password" id='confirmpassword' name='confirmpassword')
+          div.buttoncontainer  
+            input(type="submit" value='Register Today').btn.register

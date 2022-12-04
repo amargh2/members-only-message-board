@@ -6,15 +6,22 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-  h1 login 
-  p Welcome, please login 
-   div.container
-    form(action='/login' method='POST') 
-      div  
-        label(for="username") Username: 
-        input(type="text" id='username' name='username')  
-      div  
-        label(for="password") Password: 
-        input(type="text" id='password' name='password')
-      div  
-        button(type='submit') Submit
+  .header 
+      h1 The Discourse 
+  .login  
+    .image
+      img(src='/images/typewriter-luca-dugaro.png')
+    .loginform
+      div Welcome, please login 
+        form(action='/login' method='POST') 
+          div.field  
+            label(for="username") Username: 
+            input(type="text" id='username' name='username')  
+          div.field  
+            label(for="password") Password: 
+            input(type="text" id='password' name='password')
+          div  
+            button(type='submit').btn Login
+          div
+            p No account? No problem. 
+              a(href='/register') Sign up today.

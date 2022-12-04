@@ -43,14 +43,23 @@ a {
   justify-content: right;
 }
 
+.buttoncontainer {
+  display: flex;
+  justify-content: center;
+}
+.buttoncontainer input {
+  width: auto;
+}
+
 .postform {
   padding: 1rem;
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
   display: flex;
   flex-direction: column;
 }
 .postform textarea {
-  width: 70vw;
+  width: auto;
   height: 100px;
   border: 0.01rem solid;
   border-radius: 0.7rem;
@@ -136,6 +145,74 @@ a {
 }
 .sidebar .option .icon {
   font-size: 24px;
+}
+
+.login {
+  display: flex;
+}
+.login a {
+  text-decoration: underline;
+  text-decoration-color: #1C5D99;
+}
+.login .image {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  height: 100vh;
+  width: 50vw;
+  overflow: hidden;
+}
+.login .image .img {
+  object-fit: cover;
+}
+.login .loginform {
+  padding: 1rem;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
+  display: flex;
+  justify-content: center;
+}
+.login .loginform .field {
+  padding: 0.3rem;
+}
+.login .loginform .field input {
+  border-radius: 0.3rem;
+  padding: 0.2rem;
+}
+
+.register {
+  display: flex;
+}
+.register .image {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  height: 100vh;
+  width: 50vw;
+  overflow: hidden;
+}
+.register .image .img {
+  object-fit: cover;
+}
+.register .registrationform {
+  padding: 1rem;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
+  display: flex;
+  flex-direction: column;
+}
+.register .registrationform a {
+  text-decoration: underline;
+  text-decoration-color: #1C5D99;
+}
+.register .registrationform .field {
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.register .registrationform .field input {
+  border-radius: 0.3rem;
+  padding: 0.2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

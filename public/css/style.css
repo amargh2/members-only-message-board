@@ -1,5 +1,142 @@
+@import url("../node_modules/font-awesome/css/font-awesome.min.css");
+body {
+  margin: auto;
+  background-color: white;
+  color: black;
+  font-size: large;
+}
+
 .profile {
-  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+.profile .post {
+  box-shadow: 0 0 0 0.7rem white;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+  box-shadow: 0 0 0 1px whitesmoke;
+  background-color: #1C5D99;
+  border: 0.1rem white solid;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #34bdeb;
+  border: 0.1rem black solid;
+}
+
+.btn:focus {
+  background-color: #DCCFEC;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.buttons {
+  display: flex;
+  justify-content: right;
+}
+
+.postform {
+  padding: 1rem;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
+  display: flex;
+  flex-direction: column;
+}
+.postform textarea {
+  width: auto;
+  height: 100px;
+  border: 0.01rem solid;
+  border-radius: 0.7rem;
+  padding: 0.7rem;
+}
+@media (min-width: 576px) {
+  .postform textarea {
+    width: 50vw;
+  }
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+.posts .post {
+  padding: 2rem;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
+  border-radius: 0.2rem;
+}
+.posts .post .author {
+  display: flex;
+}
+.posts .post .buttons {
+  display: flex;
+  justify-content: end;
+  align-content: bottom;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .content {
+    grid-column-start: 4;
+    grid-column-end: 8;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 1rem;
+}
+
+.header {
+  column-span: all;
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 11;
+  justify-content: center;
+  background-color: #1C5D99;
+  color: white;
+}
+
+.sidebar {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  padding: 1rem;
+}
+@media (min-width: 576px) {
+  .sidebar {
+    grid-column-start: 2;
+    grid-column-end: 2;
+  }
+}
+.sidebar .option {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.sidebar .option .words {
+  display: none;
+}
+@media (min-width: 576px) {
+  .sidebar .option .words {
+    display: flex;
+  }
+}
+.sidebar .option .icon {
+  font-size: 24px;
 }
 
 /*# sourceMappingURL=style.css.map */
