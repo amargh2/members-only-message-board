@@ -133,8 +133,9 @@ router.post(
       try {
         mongoose.connect(process.env.MONGO_URI)
         const post = new Post({
-          author:req.user.id,
+          author: req.user.id || currentUser.id,
           date: new Date().toLocaleDateString(),
+          subject: req.body.subject,
           message: req.body.message
         })
         await post.save()

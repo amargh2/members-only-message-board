@@ -23,6 +23,7 @@ exports.replyToPost = async function(req, res) {
     const reply = new Reply({
       author: req.user.id || currentUser.id,
       date: new Date(),
+      subject: req.body.subject,
       message: req.body.reply,
       parent_post: parentPost._id
     })

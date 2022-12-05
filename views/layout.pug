@@ -20,14 +20,14 @@ html
             p Home
       .option
         .icon
-          a(href=`/user/${currentUser.username}`)
+          a(href=`/user/${currentUser ? currentUser.username:''}`)
             i.fa-solid.fa-user
         .words
-          a(href=`/user/${currentUser.username}`)
+          a(href=`/user/${currentUser ? currentUser.username: ''}`)
             p Profile
       .option
         .icon
-          a(href=`/user/${currentUser.username}`)
+          a(href=`/user/${currentUser ? currentUser.username : ''}`)
             i.fas.fa-envelope
         .words
           a(href='/')
