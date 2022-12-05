@@ -45,6 +45,14 @@ a{
 .buttons {
   display:flex;
   justify-content: right;
+}  
+
+.buttoncontainer{
+  display:flex;
+  justify-content:center;
+  input{
+    width:auto;
+  }
 }
 
 .postform {
@@ -136,5 +144,77 @@ a{
     .icon {
       font-size: 24px;
     }
+  }
+}
+
+.login {
+  display: flex;
+  a {
+    text-decoration:underline;
+    text-decoration-color:$blue;
+  }
+  .image {
+    display:flex;
+    background-color:white;
+    justify-content:center;
+    
+    height:100vh;
+    width:50vw;
+    overflow:hidden;
+    .img {
+      object-fit: cover;
+    }
+  }
+  .loginform {
+    padding: 1rem;
+    box-shadow: .3px .3px .3px .3px whitesmoke;
+    border: .1rem solid white;
+    display:flex;
+    justify-content:center;
+    .field{
+      padding:.3rem;
+      input {
+        border-radius: .3rem;
+        padding:.2rem;
+      }  
+    }
+    
+  }
+}
+
+.register {
+  display: flex;
+  .image {
+    display:flex;
+    background-color:white;
+    justify-content:center;
+    
+    height:100vh;
+    width:50vw;
+    overflow:hidden;
+    .img {
+      object-fit: cover;
+    }
+  }
+  .registrationform {
+    padding: 1rem;
+    box-shadow: .3px .3px .3px .3px whitesmoke;
+    border: .1rem solid white;
+    display:flex;
+    flex-direction:column;
+    a {
+      text-decoration:underline;
+      text-decoration-color:$blue;
+    }
+    .field{
+      padding:.3rem;
+      display:flex;
+      flex-direction:column;
+      input {
+        border-radius: .3rem;
+        padding:.2rem;
+      }  
+    }
+    
   }
 }
