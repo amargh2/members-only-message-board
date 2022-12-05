@@ -4,9 +4,9 @@ const Schema = mongoose.Schema
 const Post = new Schema ({
   author: {type:Schema.Types.ObjectId, ref:'User'},
   date:Date,
-  message: String,
+  subject: {type: String, minLength:5, required:true},
+  message: {type:String, minLength:15, required:true},
   replies: [{type:Schema.Types.ObjectId, ref:'Reply', ref:'User'}],
-  reply: {type: Boolean, default:false}
 })
 
 Post.virtual('url')
