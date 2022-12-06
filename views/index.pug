@@ -5,20 +5,29 @@ block content
     div.postform  
       form(action="/post" method='post')
         div.subject 
-          label(for='subject')
-          input(type='text' placeholder='Subject' name='subject')
-        div
-          label(for='message')
-          textarea(name='message' id='message' minlength='15' required) 
+          div
+            label(for='subject')
+            input(type='text' placeholder='Subject' name='subject')
+          div
+            label(for='message')
+            textarea(name='message' id='message' minlength='15' required) 
         div.buttons 
           button(type='submit' id='post-button' class='btn') Post
       div.posts  
         if posts  
           each post in posts
             div(class='post')
-              div #[a(href=post.author.url) #{post.author.username}]
-              div 
-                a(href=post.url)= post.subject
-              div.buttons
-                form(action=`/posts/${post.id}`)
-                  input(class='btn' type='submit' value='Reply' method='get' action=`/posts/${post.id}`)
+              div.subject-author-date 
+                div.subject  
+                    a(href=post.url)= post.subject
+                div.author @#[a(href=post.author.url) #{post.author.username}]
+                div.date #{post.date.toLocaleDateString()} 
+              div
+                a(href=post.url)
+                  p #{post.message}
+              div.buttons 
+                div.replies  
+                  a(href=post.url)
+                    i.fas.fa-message 
+                  a(href=post.url)
+                    p Replies: #{post.replies.length}

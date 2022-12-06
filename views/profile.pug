@@ -2,6 +2,7 @@ extends layout
 
 block content
   div.profile.content
+    div.profile-header #{user.username} 
     p #{user.bio ? user.bio : `We don't know a lot about ${user.username}, but we're sure they're great.`}
     if posts 
       div
