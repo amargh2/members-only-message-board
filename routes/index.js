@@ -114,7 +114,7 @@ router.get('*', function(req, res, next) {
 router.get('/', async function(req, res, next) {
   try {
     mongoose.connect(process.env.MONGO_URI)
-    const posts = await Post.find().limit({val:10}).populate('author')
+    const posts = await Post.find().limit({val:10}).sort({date:-1}).populate('author')
     res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
   } catch (err) {
     throw err
@@ -134,14 +134,14 @@ router.post(
         mongoose.connect(process.env.MONGO_URI)
         const post = new Post({
           author: req.user.id || currentUser.id,
-          date: new Date().toLocaleDateString(),
+          date: new Date(),
           subject: req.body.subject,
           message: req.body.message
         })
         await post.save()
         res.redirect('/')
       } catch (err) { 
-        throw err
+        res.render('error', {errors:err})
       }
     }
     )
