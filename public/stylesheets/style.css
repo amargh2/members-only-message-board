@@ -7,7 +7,7 @@ body {
   margin: auto;
   background-color: white;
   color: black;
-  font-size: large;
+  font-size: medium;
 }
 
 .profile {
@@ -118,12 +118,16 @@ a {
   gap: 1rem;
 }
 .posts .post {
-  padding: 2rem;
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
   border: 0.1rem solid white;
   border-radius: 0.2rem;
   display: flex;
   flex-direction: column;
+}
+@media (min-width: 768px) {
+  .posts .post {
+    padding: 2rem;
+  }
 }
 .posts .post .author {
   display: flex;
@@ -137,9 +141,21 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+}
+.posts .post .subject-author-date .date {
+  display: none;
+}
+@media (min-width: 768px) {
+  .posts .post .subject-author-date {
+    flex-direction: row;
+  }
+  .posts .post .subject-author-date .date {
+    display: flex;
+  }
 }
 .posts .post .subject {
-  font-size: larger;
+  font-size: large;
   font-weight: bold;
 }
 .posts .post .author a:hover {
@@ -186,8 +202,10 @@ a {
   grid-column-start: 1;
   grid-column-end: 1;
   padding: 1rem;
+  position: sticky;
+  top: 0;
 }
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   .sidebar {
     grid-column-start: 2;
     grid-column-end: 2;

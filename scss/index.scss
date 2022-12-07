@@ -11,7 +11,7 @@ body{
   margin:auto;
   background-color: white;
   color:black;
-  font-size:large;
+  font-size:medium;
 }
 
 .profile {
@@ -125,12 +125,14 @@ a{
   justify-content:center;
   gap:1rem;
   .post{
-    padding:2rem;
     box-shadow: .3px .3px .3px .3px whitesmoke;
     border: .1rem solid white;
     border-radius: .2rem;
     display:flex;
     flex-direction:column;
+    @media(min-width:$screen-md-min) {
+      padding:2rem;
+    }
     .author {
       display:flex;
     }
@@ -143,9 +145,19 @@ a{
       display: flex;
       justify-content: space-between;
       align-items:center;
+      flex-direction:column;
+      .date{
+        display:none;
+      }
+      @media(min-width:$screen-md-min) {
+        flex-direction:row;
+        .date {
+          display:flex;
+        }
+      }
     }
     .subject {
-      font-size: larger;
+      font-size: large;
       font-weight: bold;
     }
     .author {
@@ -196,7 +208,9 @@ a{
   grid-column-start:1;
   grid-column-end: 1;
   padding: 1rem;
-  @media (min-width: $screen-sm-min) {
+  position:sticky;
+  top:0;
+  @media (min-width: $screen-md-min) {
     grid-column-start:2;
     grid-column-end: 2;
   }
