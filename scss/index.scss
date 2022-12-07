@@ -23,7 +23,7 @@ body{
 }
 
 .btn {
-  padding: .75rem 1.5rem .75rem 1.5rem ;
+  padding: .75rem .9rem .75rem .9rem ;
   box-shadow: 0 0 0 1px whitesmoke;
   background-color: $blue;
   border:.1rem white solid;
@@ -202,6 +202,26 @@ a{
   justify-content:center;
   font-weight:bolder;
   font-size: xx-large;
+}
+
+.search {
+  display:flex;
+  align-items:center;
+  padding: 1rem;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
+  display: flex;
+  gap:.1rem;
+  .icon {
+    font-size: 24px;
+  }
+  input {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 0.7rem;
+    border: 0.01rem solid;
+  }
+
 }
 
 .sidebar {

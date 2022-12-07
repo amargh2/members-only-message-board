@@ -19,7 +19,7 @@ body {
 }
 
 .btn {
-  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+  padding: 0.75rem 0.9rem 0.75rem 0.9rem;
   box-shadow: 0 0 0 1px whitesmoke;
   background-color: #1C5D99;
   border: 0.1rem white solid;
@@ -196,6 +196,25 @@ a {
   justify-content: center;
   font-weight: bolder;
   font-size: xx-large;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem solid white;
+  display: flex;
+  gap: 0.1rem;
+}
+.search .icon {
+  font-size: 24px;
+}
+.search input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 0.01rem solid;
 }
 
 .sidebar {
