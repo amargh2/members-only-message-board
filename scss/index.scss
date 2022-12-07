@@ -7,6 +7,11 @@ h3 {
   margin: none;
 }
 
+p {
+  overflow: hidden;
+  max-width: 75ch;
+}
+
 body{
   margin:auto;
   background-color: white;
@@ -175,7 +180,7 @@ a{
   grid-column-end:10;
   justify-content:center;
   @media (min-width: $screen-md-min) {
-    grid-column-start:4;
+    grid-column-start:3;
     grid-column-end: 8;
   }
   
@@ -212,6 +217,12 @@ a{
   border: 0.1rem solid white;
   display: flex;
   gap:.1rem;
+  .searchform {
+    display:flex;
+    .search {
+      display:flex;
+    }
+  }
   .icon {
     font-size: 24px;
   }

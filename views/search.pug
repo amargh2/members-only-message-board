@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  div.content
+    .searchform
+      form(action='/posts/search' method='post')
+        .search  
+          label(for='search')
+            i.fa-solid.fa-magnifying-glass.icon
+          input(type='text' id='search' name='search')
+          .button 
+            button(type='submit').btn Search
+    div.results
+      if userResults
+        .userresults 
+          each user in userResults 
+            div @#[a(href=user.url) #{user.username}]
+      if subjectResults
+        .subjectResults
+          each post in subjectResults 
+            div 
+              h2 #[a(href=post.url) #{post.subject}]
+      if messageResults
+        .messageResults
+          each message in messageResults 
+            div @#[a(href=message.url) #{message.subject}]
+      if repliesResults
+        .repliesResults 
+          each reply in repliesResults  
+            div #[a(href=reply.url) #{reply.message}]

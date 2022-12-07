@@ -141,7 +141,7 @@ router.post(
         await post.save()
         res.redirect('/')
       } catch (err) { 
-        res.render('error', {errors:err})
+        res.render('error', {error:err})
       }
     }
     )
@@ -158,5 +158,8 @@ router.post(
 
     //POST delete a post
     router.post('/posts/:postid/delete', postsController.deletePost)
+
+    //POST perform a search
+    router.post('/posts/search', postsController.search)
 
 module.exports = router;

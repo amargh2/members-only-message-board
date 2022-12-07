@@ -3,6 +3,11 @@ h3 {
   margin: none;
 }
 
+p {
+  overflow: hidden;
+  max-width: 75ch;
+}
+
 body {
   margin: auto;
   background-color: white;
@@ -170,7 +175,7 @@ a {
 }
 @media (min-width: 768px) {
   .content {
-    grid-column-start: 4;
+    grid-column-start: 3;
     grid-column-end: 8;
   }
 }
@@ -206,6 +211,12 @@ a {
   border: 0.1rem solid white;
   display: flex;
   gap: 0.1rem;
+}
+.search .searchform {
+  display: flex;
+}
+.search .searchform .search {
+  display: flex;
 }
 .search .icon {
   font-size: 24px;

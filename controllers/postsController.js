@@ -25,7 +25,8 @@ exports.replyToPost = async function(req, res) {
       date: new Date(),
       subject: req.body.subject,
       message: req.body.reply,
-      parent_post: parentPost._id
+      parent_post: parentPost._id,
+      parent_post_id: parentPost.id
     })
     parentPost.replies.push(reply._id)
     await parentPost.save()
@@ -49,5 +50,24 @@ exports.deletePost = async function (req, res) {
     }
   } catch (err) {
     throw err
+  }
+}
+
+exports.search = async function (req, res) {
+  try {
+    mongoose.connect(process.env.MONGO_URI)
+    const regEx = new RegExp(req.body.search, 'i')
+    const postSubjectSearch = await Post.find({subject:regEx}).populate('author');
+    const postMessageSearch = await Post.find({message:regEx}).populate('author');
+    const userSearch = await User.find({username:regEx});
+    const repliesSearch = await Reply.find({message:regEx}).populate('parent_post')
+    res.render('search', {
+      userResults:userSearch, 
+      subjectResults:postSubjectSearch,
+      messageResults:postMessageSearch,
+      repliesResults:repliesSearch
+    })
+  } catch (err) {
+    res.render('error', {error: err})
   }
 }

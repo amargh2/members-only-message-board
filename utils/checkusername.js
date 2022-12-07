@@ -4,6 +4,7 @@ User = require('../models/user')
 const mongoose = require('mongoose');
 const { findOne } = require('../models/post');
 const Post = require('../models/post');
+const reply = require('../models/reply');
 require('dotenv').config()
 async function searchUserName(value) {
   //if the name exists, return false (ie an error)
@@ -75,7 +76,16 @@ async function removePosts() {
   }
 }
 
+async function removeReplies(){
+  try {
+    await reply.deleteMany({});
+    console.log('delete many done')
+  } catch (err) {
+    throw err
+  }
+}
+
 clearUsers()
 removePosts()
-
+removeReplies()
 module.exports = searchUserName()
