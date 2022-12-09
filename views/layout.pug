@@ -10,6 +10,15 @@ html
   div.grid
     div(class='header')
       h1 The Discourse
+    .searchform
+      form(action='/posts/search' method='post').search
+        div  
+          label(for='search')
+            i.fa-solid.fa-magnifying-glass.icon
+        div.field
+          input(type='text' id='search' name='search')
+        .button 
+          button(type='submit').btn Search
     div.sidebar 
       .option
         .icon
