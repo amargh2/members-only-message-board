@@ -2,15 +2,6 @@ extends layout
 
 block content
   div.content
-    .searchform
-      form(action='/posts/search' method='post').search
-        div  
-          label(for='search')
-            i.fa-solid.fa-magnifying-glass.icon
-        div.field
-          input(type='text' id='search' name='search')
-        .button 
-          button(type='submit').btn Search
     div.results
       if userResults
         .userresults 

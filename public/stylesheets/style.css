@@ -99,6 +99,9 @@ a {
   display: flex;
   justify-items: center;
 }
+.postform .field {
+  flex-grow: 4;
+}
 .postform input {
   padding: 0.7rem;
   border-radius: 0.7rem;
@@ -215,8 +218,9 @@ a {
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
   border: 0.1rem black solid;
   border-radius: 0.7rem;
-  grid-column-start: 2;
+  grid-column-start: 1;
   grid-column-end: 10;
+  display: grid;
 }
 @media (min-width: 992px) {
   .searchform {
@@ -230,11 +234,11 @@ a {
   justify-content: space-between;
   padding: 0.1rem;
 }
-.searchform .search .field {
-  flex-grow: 4;
-}
 .searchform div {
   display: flex;
+}
+.searchform .field {
+  flex-grow: 4;
 }
 .searchform input {
   padding: 0.7rem;

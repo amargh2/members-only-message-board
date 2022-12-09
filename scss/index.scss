@@ -105,6 +105,9 @@ a{
     display:flex;
     justify-items:center;
   }
+  .field {
+    flex-grow: 4;
+  }
   input {
     padding: .7rem;
     border-radius: .7rem;
@@ -221,8 +224,9 @@ a{
   box-shadow: .3px .3px .3px .3px whitesmoke;
   border:.1rem black solid;
   border-radius:.7rem;
-  grid-column-start:2;
+  grid-column-start:1;
   grid-column-end: 10;
+  display:grid;
   @media (min-width: $screen-lg-min) {
     grid-column-start:4;
     grid-column-end: 7;
@@ -232,12 +236,13 @@ a{
     align-items:center;
     justify-content:space-between;
     padding:.1rem;
-    .field {
-      flex-grow:4
-    }
+  
   }
   div {
     display: flex;
+  }
+  .field {
+    flex-grow: 4;
   }
   input {
     padding: .7rem;
