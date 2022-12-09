@@ -52,6 +52,7 @@ a {
   display: grid;
   justify-content: right;
   align-items: center;
+  padding: 0.1rem;
 }
 .buttons .replies {
   display: flex;
@@ -85,20 +86,25 @@ a {
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
   display: flex;
   flex-direction: column;
+  border: 0.1rem black solid;
+  padding: 0.3rem;
+  border-radius: 0.7rem;
 }
 .postform div {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
+.postform .newpost {
+  display: flex;
+  justify-items: center;
+}
 .postform input {
-  width: 100%;
   padding: 0.7rem;
   border-radius: 0.7rem;
   border: 0.01rem solid;
 }
 .postform textarea {
-  width: 100%;
   height: 100px;
   border: 0.01rem solid;
   border-radius: 0.7rem;
@@ -173,11 +179,12 @@ a {
   grid-column-start: 2;
   grid-column-end: 10;
   justify-content: center;
+  gap: 0.2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .content {
     grid-column-start: 4;
-    grid-column-end: 8;
+    grid-column-end: 7;
   }
 }
 
@@ -205,26 +212,55 @@ a {
 }
 
 .searchform {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  /*
+    display:flex;
+    align-items:center;
+    justify-content:space-evenly;
+    box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+    border-radius: .7rem;
+    gap:.1rem;
+    border: .1rem solid black;
+    .search {
+      display:flex;
+      padding: .1rem;
+      align-items:center;
+    }
+    .icon {
+      font-size: 24px;
+    }
+    input {
+      width: 100%;
+      outline:none;
+      border:none;
+      padding:.1rem;
+      margin: none;
+    }
+  */
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  border: 0.1rem black solid;
   border-radius: 0.7rem;
-  gap: 0.1rem;
-  border: 0.1rem solid black;
 }
 .searchform .search {
   display: flex;
-  padding: 0.1rem;
   align-items: center;
+  justify-content: space-between;
+  padding: 0.1rem;
 }
-.searchform .icon {
-  font-size: 24px;
+.searchform .search .field {
+  flex-grow: 4;
+}
+.searchform div {
+  display: flex;
 }
 .searchform input {
-  width: 100%;
-  outline: none;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
   border: none;
+  outline: none;
+}
+.searchform input:focus {
+  border: none;
+  outline: none;
 }
 
 .sidebar {
@@ -234,7 +270,7 @@ a {
   position: sticky;
   top: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .sidebar {
     grid-column-start: 2;
     grid-column-end: 2;
