@@ -11,15 +11,13 @@ html
     div(class='header')
       h1 The Discourse
     .searchform
-      form(action='/posts/search' method='post')
-      .search
-        div  
+      form(action='/posts/search' method='post').search  
+        div.formgroup
           label(for='search')
             i.fa-solid.fa-magnifying-glass.icon
-        div.field
           input(type='text' id='search' name='search')
-          div
-            button(type='submit').btn Search
+        div.searchbtn
+          input(type='submit' value='Search')
     div.sidebar 
       .option
         .icon
