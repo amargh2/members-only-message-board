@@ -2,25 +2,18 @@ extends layout
 
 block content
   div.content
-    .searchform
-      form(action='/posts/search' method='post')
-        .search  
-          label(for='search')
-            i.fa-solid.fa-magnifying-glass.icon
-          input(type='text' id='search' name='search')
-          .button 
-            button(type='submit').btn Search
     div.postform  
+      div.newpost
+        p Create A New Post
       form(action="/post" method='post')
-        div.subject 
           div
             label(for='subject')
             input(type='text' placeholder='Subject' name='subject')
           div
             label(for='message')
             textarea(name='message' id='message' minlength='15' required) 
-        div.buttons 
-          button(type='submit' id='post-button' class='btn') Post
+          div.buttons 
+            button(type='submit' id='post-button' class='btn') Post
     div.posts  
       if posts  
         each post in posts
