@@ -22,6 +22,7 @@ body{
 .profile {
   display:flex;
   flex-direction: column;
+  padding:2rem;
   .post {
     box-shadow: 0 0 0 .7rem white;
   }
@@ -88,13 +89,12 @@ a{
 
 
 .postform {
-  padding: 1rem;
   box-shadow: .3px .3px .3px .3px whitesmoke;
-  border: .1rem solid white;
   display:flex;
   flex-direction: column;
   div {
-    padding: .2rem;
+    display:flex;
+    flex-direction:column;
   }
   input {
     width:100%;
@@ -180,7 +180,7 @@ a{
   grid-column-end:10;
   justify-content:center;
   @media (min-width: $screen-md-min) {
-    grid-column-start:3;
+    grid-column-start:4;
     grid-column-end: 8;
   }
   
@@ -209,28 +209,35 @@ a{
   font-size: xx-large;
 }
 
-.search {
+.searchform {
   display:flex;
+  flex-direction:column;
   align-items:center;
-  padding: 1rem;
+  padding: .1rem;
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
-  border: 0.1rem solid white;
+  border-radius: .7rem;
   display: flex;
   gap:.1rem;
-  .searchform {
+  width:auto;  
+  .search {
     display:flex;
-    .search {
-      display:flex;
-    }
+    align-items:center;
+    padding:.1rem;
+    box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+    border: black solid .1rem;
+    border-radius: .7rem;
+    display: flex;
+    gap:.1rem;
+    width:100%;  
   }
+
   .icon {
     font-size: 24px;
   }
   input {
     width: 100%;
-    padding: 0.7rem;
-    border-radius: 0.7rem;
-    border: 0.01rem solid;
+    outline:none;
+    border:none;
   }
 
 }
