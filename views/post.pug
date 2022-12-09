@@ -21,6 +21,6 @@ block content
         form(action=`/posts/${post._id}/reply` method='post' class='postform')
           label(for="reply") 
           textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15 required=true)
-          div
+          div.buttons
             input(type='submit' value='Reply').btn
     

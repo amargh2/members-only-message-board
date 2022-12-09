@@ -1,0 +1,35 @@
+.postform {
+  box-shadow: .3px .3px .3px .3px whitesmoke;
+  display:flex;
+  flex-direction: column;
+  border: .1rem black solid;
+  padding: .3rem;
+  border-radius:.7rem;
+  div {
+    display:flex;
+    flex-direction:column;
+    gap:.2rem;
+  }
+  .newpost {
+    display:flex;
+    justify-content:center;
+    p {
+      font-size:larger;
+    }
+  }
+  .field {
+    flex-grow: 4;
+  }
+  input {
+    padding: .7rem;
+    border-radius: .7rem;
+    border:.01rem solid;
+  }
+  textarea{
+    height: 100px;
+    border: .01rem solid;
+    border-radius: .7rem;
+    padding:.7rem;
+  }
+
+}

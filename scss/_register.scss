@@ -1,0 +1,36 @@
+.register {
+  display: flex;
+  .image {
+    display:flex;
+    background-color:white;
+    justify-content:center;
+    
+    height:100vh;
+    width:50vw;
+    overflow:hidden;
+    .img {
+      object-fit: cover;
+    }
+  }
+  .registrationform {
+    padding: 1rem;
+    box-shadow: .3px .3px .3px .3px whitesmoke;
+    border: .1rem solid white;
+    display:flex;
+    flex-direction:column;
+    a {
+      text-decoration:underline;
+      text-decoration-color:$blue;
+    }
+    .field{
+      padding:.3rem;
+      display:flex;
+      flex-direction:column;
+      input {
+        border-radius: .3rem;
+        padding:.2rem;
+      }  
+    }
+    
+  }
+}

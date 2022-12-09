@@ -1,0 +1,33 @@
+.sidebar {
+  grid-column-start:1;
+  grid-column-end: 1;
+  padding: 1rem;
+  position:sticky;
+  top:0;
+  @media (min-width: $screen-lg-min) {
+    grid-column-start:2;
+    grid-column-end: 2;
+  }
+  .option{
+    display:flex;
+    border-radius:.9rem;
+    align-items:center;
+    gap:.3rem;
+    padding:.2rem;
+    margin:.5rem;
+    //hides the words on small screens
+    .words {
+      display:none;
+      @media (min-width:$screen-md-min) {
+        display:flex;
+      }
+    }
+    .icon {
+      font-size: 24px;
+    }
+  }
+}
+
+.option:hover {
+  background-color:lightgray;
+}

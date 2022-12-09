@@ -1,0 +1,23 @@
+.profile {
+  display:flex;
+  flex-direction: column;
+  padding:2rem;
+  .post {
+    box-shadow: 0 0 0 .7rem white;
+  }
+}
+
+.posttitle {
+  display:flex;
+  justify-content:center;
+  font-size:xx-large;
+  font-weight:bolder;
+}
+
+
+.profile-header{
+  display:flex;
+  justify-content:center;
+  font-weight:bolder;
+  font-size: xx-large;
+}

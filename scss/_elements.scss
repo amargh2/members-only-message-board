@@ -1,0 +1,52 @@
+
+
+a{
+  text-decoration:none;
+  color:black;
+}
+
+body{
+  margin:auto;
+  background-color: white;
+  color:black;
+  font-size:medium;
+}
+
+.btn {
+  padding: .75rem .9rem .75rem .9rem ;
+  box-shadow: 0 0 0 1px whitesmoke;
+  background-color: $blue;
+  border:.1rem white solid;
+  border-radius: .5rem;
+  color:white;
+  font-weight:bold;
+}
+
+.btn:hover {
+  background-color: $light-blue;
+  border: .1rem black solid;
+}
+
+.btn:focus{
+  background-color:$lavender;
+}
+
+h3 {
+  margin: none;
+}
+
+p {
+  overflow: hidden;
+  max-width: 75ch;
+}
+
+.header{
+  column-span: all;
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 11;
+  justify-content:center;
+  background-color:$blue;
+  color:white;
+  
+}
