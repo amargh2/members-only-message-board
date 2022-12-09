@@ -1,0 +1,16 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+const Post = new Schema ({
+  author: {type:Schema.Types.ObjectId, ref:'User'},
+  date:Date,
+  message: {type:String, minLength:15, required:true},
+  to: {type:Schema.Types.ObjectId, ref: 'User'}
+})
+
+Post.virtual('url')
+  .get(function() {
+    return `/posts/${this._id}`
+  })
+
+module.exports = mongoose.model('Post', Post)
