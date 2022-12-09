@@ -215,8 +215,14 @@ a {
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
   border: 0.1rem black solid;
   border-radius: 0.7rem;
-  grid-column-start: 4;
-  grid-column-end: 7;
+  grid-column-start: 2;
+  grid-column-end: 10;
+}
+@media (min-width: 992px) {
+  .searchform {
+    grid-column-start: 4;
+    grid-column-end: 7;
+  }
 }
 .searchform .search {
   display: flex;
@@ -239,6 +245,9 @@ a {
 .searchform input:focus {
   border: none;
   outline: none;
+}
+.searchform .button {
+  display: flex;
 }
 
 .sidebar {
