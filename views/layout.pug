@@ -38,6 +38,6 @@ html
           a(href=`/user/${currentUser ? currentUser.username : ''}`)
             i.fas.fa-envelope
         .words
-          a(href='/')
+          a(href=`/user/${currentUser ? currentUser.username : ''}/messages`)
             p Messages
     block content

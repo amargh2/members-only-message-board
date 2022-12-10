@@ -8,6 +8,7 @@ require('dotenv').config()
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
+const Message = require('../models/message')
 
 exports.registerUser = async function(req, res) {
 
@@ -46,5 +47,17 @@ exports.userProfile = async  (req, res) => {
     res.render('profile', {user: user[0], posts:posts, title:`${user[0].username}'s profile`})
   } catch (err) {
     res.render('error', {error: err})
+  }
+}
+
+exports.getMessages = async (req, res) => {
+  try {
+    mongoose.connect(process.env.MONGO_URI)
+    const to = await User.findOne({username:req.params['username']})
+    console.log(to)
+    const messages = await Message.find({to: to}).populate('author')
+    res.render('messages', {messages:messages})
+  } catch (err) {
+    res.render('error', {error:err})
   }
 }

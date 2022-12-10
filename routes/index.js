@@ -162,4 +162,7 @@ router.post(
     //POST perform a search
     router.post('/posts/search', postsController.search)
 
+    //GET messages page
+    router.get('/user/:username/messages', usersController.getMessages)
+
 module.exports = router;
