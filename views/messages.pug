@@ -11,3 +11,5 @@ block content
               .from #[a(href=message.author.url) #{message.author.username}]
               .date= message.date.toLocaleString()
             .message= message.message
+            .buttons 
+              button.btn Reply
