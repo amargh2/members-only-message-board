@@ -6,7 +6,7 @@ const Message = new Schema ({
   date:Date,
   message: {type:String, minLength:15, required:true},
   to: {type:Schema.Types.ObjectId, ref: 'User'},
-  replies: Array
+  submessages: Array
 })
 
 /*Message.virtual('url')

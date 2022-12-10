@@ -1,4 +1,13 @@
 extends layout 
 block content 
   .content 
-    div messages go here
+    div  
+      h2 #{currentUser.username}'s messages
+    div.messages
+      if messages 
+        each message in messages 
+          .message-card
+            .from-date
+              .from #[a(href=message.author.url) #{message.author.username}]
+              .date= message.date.toLocaleString()
+            .message= message.message
