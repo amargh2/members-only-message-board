@@ -6,6 +6,7 @@ const Post = require('../models/post');
 const reply = require('../models/reply');
 const Message = require('../models/message');
 const User = require('../models/user');
+const Response = require('../models/response')
 
 
 require('dotenv').config()
@@ -94,13 +95,13 @@ async function createMessage(){
     const sender = await User.findOne({username:'plender'})
     const to = await User.findOne({username:'ideogesis'})
     const message = new Message({
-      author: sender._id,
+      from_user: sender._id,
+      to_user: to._id,
       date: new Date(),
       message: 'hey nerd just wanna tell you i think you are strong and good',
-      to: to._id,
-      submessages: []
     })
     await message.save()
+    console.log('done')
   } catch (err) {
     throw err
   }
@@ -118,7 +119,17 @@ async function getMessage(){
   }
 }
 
-getMessage()
+async function clearMessages() {
+  try {
+    mongoose.connect(process.env.MONGO_URI);
+    await Message.deleteMany({})
+    console.log('done')
+  } catch (err) {
+    throw err
+  } 
+    
+}
 
+clearMessages()
 
 module.exports = searchUserName()

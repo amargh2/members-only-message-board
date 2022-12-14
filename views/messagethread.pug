@@ -1,0 +1,19 @@
+extends layout 
+
+block content 
+  .content 
+    h3 Conversation with #{messages[0].from_user.username === currentUser.username ? messages[0].to_user.username : messages[0].from_user.username}
+    if messages 
+      each message in messages 
+        .messages 
+          .message
+            .from-date 
+              .from #{message.from_user.username}
+              .date #{message.date.toLocaleString()}
+          .message
+            p #{message.message}  
+      form(action=`/user/ideogesis/messages/${messages[0].id}/reply` method='post')
+        div.reply
+          label(for='submessage')
+          textarea(name='submessage' id='submessage')
+          button.btn(type='submit') Reply

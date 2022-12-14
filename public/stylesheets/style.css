@@ -202,6 +202,10 @@ p {
   background-color: lightgray;
 }
 
+.option.logout:hover {
+  cursor: pointer;
+}
+
 .postform {
   box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
   display: flex;
@@ -354,6 +358,89 @@ p {
 .register .registrationform .field input {
   border-radius: 0.3rem;
   padding: 0.2rem;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  font-size: medium;
+  gap: 0.5rem;
+}
+.messages .date {
+  font-size: smaller;
+}
+.messages .message-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.7rem;
+}
+.messages .message-card .from-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controlpanel {
+  display: flex;
+  justify-content: center;
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.reply textarea {
+  height: 100px;
+  width: 100%;
+  border-radius: 0.7rem;
+  padding: 0.7rem;
+}
+
+.buttoncontainer {
+  display: flex;
+  justify-content: end;
+}
+
+.composemessageform {
+  box-shadow: 0.3px 0.3px 0.3px 0.3px whitesmoke;
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem black solid;
+  padding: 0.3rem;
+  border-radius: 0.7rem;
+  padding: 2rem;
+}
+.composemessageform div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.composemessageform .newmessage {
+  display: flex;
+  justify-content: center;
+}
+.composemessageform .newmessage p {
+  font-size: larger;
+}
+.composemessageform .field {
+  flex-grow: 4;
+}
+.composemessageform input {
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 0.01rem solid;
+}
+.composemessageform textarea {
+  height: 100px;
+  border: 0.01rem solid;
+  border-radius: 0.7rem;
+  padding: 0.7rem;
+}
+
+.title {
+  display: flex;
 }
 
 /*# sourceMappingURL=style.css.map */

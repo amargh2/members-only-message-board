@@ -2,11 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const Message = new Schema ({
-  author: {type:Schema.Types.ObjectId, ref:'User'},
+  from_user: {type:Schema.Types.ObjectId, ref:'User'},
   date:Date,
-  message: {type:String, minLength:15, required:true},
-  to: {type:Schema.Types.ObjectId, ref: 'User'},
-  submessages: Array
+  message: {type:String, minLength:3, required:true},
+  to_user: {type:Schema.Types.ObjectId, ref: 'User'},
+  replies: [{type: Schema.Types.ObjectId, ref:'Message'}],
+  parent_message: {type:Schema.Types.ObjectId, ref:'Message', required: false}
 })
 
 /*Message.virtual('url')

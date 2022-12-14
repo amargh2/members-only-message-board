@@ -99,6 +99,14 @@ async function(req, res, next) {
     })
   );
 
+  //POST logout
+  router.post('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) {return next(err)}
+      res.redirect('/login')
+    })
+  })
+
 
 //catch all redirect to prevent unauthenticated users from accessing authenticated routes
 router.get('*', function(req, res, next) {
@@ -162,7 +170,19 @@ router.post(
     //POST perform a search
     router.post('/posts/search', postsController.search)
 
+    // GET send new message page
+    router.get('/user/:username/messages/compose', usersController.composeMessagePage)
+
+    //POST send a message to a user
+    router.post('/user/:username/messages/send', usersController.sendMessage)
+
     //GET messages page
     router.get('/user/:username/messages', usersController.getMessages)
 
-module.exports = router;
+    //GET message thread
+    router.get('/user/:username/messages/:messageid', usersController.getMessageThread)
+
+    // POST response to message (ie, create a response)
+    router.post('/user/:username/messages/:messageid/reply', usersController.replyToMessage)
+
+    module.exports = router;

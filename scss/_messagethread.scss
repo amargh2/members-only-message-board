@@ -1,0 +1,18 @@
+.reply {
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  gap:.2rem;
+  textarea {
+    height: 100px;
+    width:100%;
+    border-radius:.7rem;
+    padding:.7rem;
+  }
+
+}
+
+.buttoncontainer {
+  display:flex;
+  justify-content:end;
+}

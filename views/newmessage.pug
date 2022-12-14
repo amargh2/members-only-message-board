@@ -1,0 +1,17 @@
+extends layout
+
+block content 
+  .content 
+    .div.composemessageform  
+      .newpost  
+        h3 Send a new private message
+      div
+        form(action="/user/#{currentUser.username}" method='post')
+          div
+            label(for='recipient')
+            input(type='text' placeholder='Recipient' name='recipient')
+          div
+            label(for='message')
+            textarea(name='message' id='message' minlength='3' required) 
+          div.buttons 
+            button(type='submit' id='post-button' class='btn') Send Message

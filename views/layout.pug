@@ -40,4 +40,11 @@ html
         .words
           a(href=`/user/${currentUser ? currentUser.username : ''}/messages`)
             p Messages
+      form(action='/logout' method='post' id='logout').logout
+        .option.logout(onclick = "document.getElementById('logout').submit()")
+          .icon 
+            i.fa-solid.fa-right-from-bracket
+          .words
+            p Logout
+
     block content

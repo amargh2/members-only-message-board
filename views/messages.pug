@@ -1,15 +1,27 @@
 extends layout 
 block content 
   .content 
+    .div.composemessageform  
+      .newpost  
+        h3 Send a new private message
+      div
+        form(action=`/user/${currentUser.username}/messages/send` method='post')
+          div
+            label(for='recipient')
+            input(type='text' placeholder='Recipient' name='recipient')
+          div
+            label(for='message')
+            textarea(name='message' id='message' minlength='15' required) 
+          div.buttons 
+            button(type='submit' id='post-button' class='btn') Send Message
     div  
       h2 #{currentUser.username}'s messages
     div.messages
       if messages 
         each message in messages 
-          .message-card
-            .from-date
-              .from #[a(href=message.author.url) #{message.author.username}]
-              .date= message.date.toLocaleString()
-            .message= message.message
-            .buttons 
-              button.btn Reply
+          if message.parent_post === undefined
+            .message-card
+              .from-date
+                .from #[a(href=`/user/${message.from_user.username}/`) Conversation with #{message.from_user.username === currentUser.username ? message.to_user.username : message.from_user.username}]
+              .message #[a(href=`/user/${currentUser.username}/messages/${message.id}`) #{message.from_user.username}: #{message.message}]
+                .date= message.date.toLocaleString()
