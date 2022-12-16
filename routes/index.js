@@ -10,7 +10,6 @@ const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 const usersController = require('../controllers/usersController');
-
 //Sign up and register get and post pages first; catch all underneath to ensure logged in users.
 
 //GET login form
@@ -26,7 +25,7 @@ router.get('/register', function(req, res, next) {
   res.render('register', {title: 'Sign Up'})
 })
 
-//POST sign up form 
+//POST sign up form
 router.post('/register',
   
   //all validators need to pass in the function arguments - per express-validator docs
@@ -119,16 +118,7 @@ router.get('*', function(req, res, next) {
 
 /* GET home page. */
 
-router.get('/', async function(req, res, next) {
-  try {
-    mongoose.connect(process.env.MONGO_URI)
-    const posts = await Post.find().limit({val:10}).sort({date:-1}).populate('author')
-    res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
-  } catch (err) {
-    throw err
-  }
-  
-});
+router.get('/', postsController.getHomePage);
 
 router.post(
     '/post', 

@@ -16,6 +16,16 @@ exports.getPost = async function(req, res) {
   }
 }
 
+exports.getHomePage =  async function(req, res, next) {
+  try {
+    mongoose.connect(process.env.MONGO_URI)
+    const posts = await Post.find().limit({val:10}).sort({date:-1}).populate('author')
+    res.render('index', { title: 'The Discourse', user:req.user, posts:posts });
+  } catch (err) {
+    res.render('error',{error:err})
+  }
+};
+
 exports.replyToPost = async function(req, res) {
   try {
     mongoose.connect(process.env.MONGO_URI)
