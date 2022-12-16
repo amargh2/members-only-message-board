@@ -6,8 +6,8 @@ const Post = require('../models/post');
 const reply = require('../models/reply');
 const Message = require('../models/message');
 const User = require('../models/user');
-const Response = require('../models/response')
-
+const Conversation = require('../models/conversation');
+const message = require('../models/message');
 
 require('dotenv').config()
 async function searchUserName(value) {
@@ -123,11 +123,39 @@ async function clearMessages() {
   try {
     mongoose.connect(process.env.MONGO_URI);
     await Message.deleteMany({})
+    await Conversation.deleteMany({})
     console.log('done')
   } catch (err) {
     throw err
   } 
     
+}
+
+async function searchConversations() {
+  try {
+    mongoose.connect(process.env.MONGO_URI);
+    const search = await Conversation.find(
+      {participants:{$all:['6397f020d1108e1ce01ec746', '63911dd96152608145bc0918']}}
+    )
+    .populate(
+      {
+        path: 'messages',
+        populate:[ 
+          {
+            path: 'from_user',
+            model: 'User'
+          },
+          {
+            path:'to_user',
+            model:'User'
+          } 
+        ]
+      }
+    )
+    console.log(search[0].messages.at(-1))
+  } catch (err) {
+    throw err
+  }
 }
 
 clearMessages()

@@ -2,9 +2,9 @@ extends layout
 
 block content 
   .content 
-    h3 Conversation with #{messages[0].from_user.username === currentUser.username ? messages[0].to_user.username : messages[0].from_user.username}
-    if messages 
-      each message in messages 
+    h3 Conversation with #{conversation.messages[0].from_user.username === currentUser.username ? conversation.messages[0].to_user.username : conversation.messages[0].from_user.username}
+    if conversation.messages 
+      each message in conversation.messages 
         .messages 
           .message
             .from-date 
@@ -12,8 +12,10 @@ block content
               .date #{message.date.toLocaleString()}
           .message
             p #{message.message}  
-      form(action=`/user/ideogesis/messages/${messages[0].id}/reply` method='post')
+      form(action=`/user/${currentUser.username}/messages/${conversation.id}/reply` method='post')
         div.reply
+          label(for='recipient')
+          input(type='hidden' name='recipient' value=`${conversation.messages[0].from_user.username === currentUser.username ? conversation.messages[0].to_user.id : conversation.messages[0].from_user.id}`)
           label(for='submessage')
           textarea(name='submessage' id='submessage')
           button.btn(type='submit') Reply

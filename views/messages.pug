@@ -17,11 +17,8 @@ block content
     div  
       h2 #{currentUser.username}'s messages
     div.messages
-      if messages 
-        each message in messages 
-          if message.parent_post === undefined
-            .message-card
-              .from-date
-                .from #[a(href=`/user/${message.from_user.username}/`) Conversation with #{message.from_user.username === currentUser.username ? message.to_user.username : message.from_user.username}]
-              .message #[a(href=`/user/${currentUser.username}/messages/${message.id}`) #{message.from_user.username}: #{message.message}]
-                .date= message.date.toLocaleString()
+        each conversation in conversations 
+          .conversation #{conversation.messages.at(-1).from_user.username} + #{conversation.messages.at(-1).to_user.username}
+            .message 
+              .from #{conversation.messages.at(-1).from_user.username}: #[a(href=`/user/${currentUser.username}/messages/${conversation.id}`) #{conversation.messages.at(-1).message}]
+              .date #{conversation.messages.at(-1).date.toLocaleString()}

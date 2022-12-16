@@ -7,7 +7,7 @@ const Message = new Schema ({
   message: {type:String, minLength:3, required:true},
   to_user: {type:Schema.Types.ObjectId, ref: 'User'},
   replies: [{type: Schema.Types.ObjectId, ref:'Message'}],
-  parent_message: {type:Schema.Types.ObjectId, ref:'Message', required: false}
+  parent_message: {type:Schema.Types.ObjectId, ref:'Message', required: false},
 })
 
 /*Message.virtual('url')

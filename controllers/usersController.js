@@ -9,8 +9,8 @@ const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 const Message = require('../models/message')
-const Response = require('../models/response');
-const message = require('../models/message');
+const Conversation = require('../models/conversation');
+const conversation = require('../models/conversation');
 
 exports.registerUser = async function(req, res) {
 
@@ -55,17 +55,50 @@ exports.userProfile = async  (req, res) => {
 exports.sendMessage = async (req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URI)
-    // find the user to send to
+    
+    //users
     const recipient = await User.findOne({username:req.body.recipient})
     const author = await User.findOne({username:req.params['username']})
-    const message = new Message ({
-      from_user: author.id,
-      date: new Date(),
-      message: req.body.message,
-      to_user: recipient.id
-    })
-    message.save()
-    res.redirect(`/user/${req.params['username']}/messages`)
+
+    //check if a convo exists between the two users
+
+    const conversationInProgress = await Conversation.findOne(
+      {participants:{$all:[author.id, recipient.id]}}
+    )
+    
+    console.log(conversationInProgress)
+
+    
+    if (!conversationInProgress) {
+      const message = new Message ({
+        from_user: author.id,
+        date: new Date(),
+        message: req.body.message,
+        to_user: recipient.id,
+      })
+      message.save()
+      
+      const newConversation = new Conversation({
+        participants:[recipient.id, author.id],
+        date: new Date(),
+        messages:message.id,
+        conversation_id: message.id
+      })
+      newConversation.save()
+    } else {
+      const message = new Message ({
+        from_user: author.id,
+        date: new Date(),
+        message: req.body.message,
+        to_user: recipient.id,
+        conversation_id: conversationInProgress.conversation_id
+      })
+      message.save()
+      conversationInProgress.messages.push(message._id)
+      conversationInProgress.save()
+    }
+
+    res.redirect(`/user/${req.params['username']}/messages`)        
   } catch (err) {
     res.render('error', {error:err})
   }
@@ -75,9 +108,8 @@ exports.getMessages = async (req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URI)
     const user = await User.findOne({username:req.params['username']})
-    const messages = await Message.find({$or:[{to:user.id}, {from:user.id}]}).populate('from_user').populate('to_user')
-    
-    res.render('messages', {messages:messages})
+    const conversations = await Conversation.find({participants: user.id}).populate({ path: 'messages', populate:[{path:'from_user', model:'User'},{path:'to_user', model:'User'}]})
+    res.render('messages', {conversations:conversations})
   } catch (err) {
     res.render('error', {error:err})
   }
@@ -86,8 +118,12 @@ exports.getMessages = async (req, res) => {
 exports.getMessageThread = async(req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URI)
-    const messages = await Message.find({$or:[{id: req.params['messageid']}, {parent_message:req.params['messageid']}]}).populate('from_user').populate('to_user')
-    res.render('messagethread', {messages:messages})
+    const conversation = await Conversation.findById(req.params['messageid']).
+    populate({
+      path:'messages', 
+      populate:[{path:'from_user', model:'User'}, {path:'to_user', model:'User'}]})
+      .populate('participants')
+    res.render('messagethread', {conversation:conversation})
   } catch (err) {
     res.render('error', {error:err})
   }
@@ -96,19 +132,22 @@ exports.getMessageThread = async(req, res) => {
 exports.replyToMessage = async(req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URI);
-    const from_user = await User.findOne({username:req.params['username']})
-    const op = await Message.findById(req.params['messageid']).populate('from_user').populate('to_user')
+    console.log('made it this far')
+    const conversation = await Conversation.findById(req.params['messageid']);
+    const sender = await User.findOne({username:req.params['username']})
+    const recipient = await User.findById(req.body.recipient)
+    
+    console.log(conversation, sender, recipient)
     const message = new Message ({
-      from_user: from_user.id,
+      from_user: sender.id,
       date: new Date(),
-      to_user: op.from_user.id === req.user.id ? op.to_user.id : op.from_user.id,
+      to_user: req.body.recipient,
       message: req.body.submessage,
-      parent_message: op.id
     })
     message.save();
-    op.replies.push(message._id)
-    op.save()
-    res.redirect(`/user/${req.params['username']}/messages/${op.id}`)
+    conversation.messages.push(message.id)
+    conversation.save()
+    res.redirect(`/user/${req.params['username']}/messages/${conversation.id}`)
   } catch (err) {
     res.render('error', {error: err})
   }
