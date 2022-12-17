@@ -5,12 +5,14 @@
   gap:.5rem;
   .date {
     font-size:smaller;
+    display:flex;
   }
   .message-card {
     display:flex;
     flex-direction:column;
     gap:.5rem;
     padding:.7rem;
+    box-shadow: 0 0 0 .1rem whitesmoke;
     .from-date {
       display:flex;
       justify-content: space-between;

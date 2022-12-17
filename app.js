@@ -11,7 +11,12 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs')
 var session = require('express-session');
 const { default: mongoose } = require('mongoose');
+const helmet = require('helmet');
 var app = express();
+
+//helmet
+
+app.use(helmet())
 
 // passport setup
 

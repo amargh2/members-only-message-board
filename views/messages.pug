@@ -18,7 +18,7 @@ block content
       h2 #{currentUser.username}'s messages
     div.messages
         each conversation in conversations 
-          .conversation #{conversation.messages.at(-1).from_user.username} + #{conversation.messages.at(-1).to_user.username}
+          .conversation.message-card #{conversation.messages.at(-1).from_user.username} + #{conversation.messages.at(-1).to_user.username}
             .message 
               .from #{conversation.messages.at(-1).from_user.username}: #[a(href=`/user/${currentUser.username}/messages/${conversation.id}`) #{conversation.messages.at(-1).message}]
-              .date #{conversation.messages.at(-1).date.toLocaleString()}
+            .date #{conversation.messages.at(-1).date.toLocaleString()}

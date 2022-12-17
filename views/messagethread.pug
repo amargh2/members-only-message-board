@@ -6,12 +6,11 @@ block content
     if conversation.messages 
       each message in conversation.messages 
         .messages 
-          .message
-            .from-date 
-              .from #{message.from_user.username}
-              .date #{message.date.toLocaleString()}
-          .message
-            p #{message.message}  
+          .message-card
+            .message  
+              .sender #[a(href=`/user/${message.from_user.username}`) #{message.from_user.username}]:  
+              .message #{message.message}
+            .date #{message.date.toLocaleString()}  
       form(action=`/user/${currentUser.username}/messages/${conversation.id}/reply` method='post')
         div.reply
           label(for='recipient')

@@ -5,19 +5,18 @@ block content
     div.posttitle #{post.subject}
     div.posts
       div.post  
-        div.author-date
+        div.subject-author-date
           .author @#[a(href=post.author.url) #{post.author.username}]
           .date= post.date.toLocaleDateString()
         div.message
           p=post.message
       if post.replies 
-        div.posts
-          each reply in replies
-            div.reply.post
-              div.author-date 
-                div.author @#[a(href=reply.author.url) #{reply.author.username}]
-                div.date #{reply.date.toLocaleDateString()}
-              div.message= reply.message
+        each reply in replies
+          div.post
+            div.subject-author-date
+              div.author @#[a(href=reply.author.url) #{reply.author.username}]
+              div.date #{reply.date.toLocaleDateString()}
+            div.message= reply.message
         form(action=`/posts/${post._id}/reply` method='post' class='postform')
           label(for="reply") 
           textarea(type='text' name='reply' placeholder=`Reply to ${post.author.username}...` minlength=15 required=true)

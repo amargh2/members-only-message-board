@@ -5,6 +5,15 @@
   border: .1rem black solid;
   padding: .3rem;
   border-radius:.7rem;
+  column-span:all;
+  grid-column-start:2;
+  grid-column-end: 10;
+  padding:.1rem;
+  @media (min-width: $screen-lg-min) {
+    grid-column-start:4;
+    grid-column-end: 7;
+  }
+
   div {
     display:flex;
     flex-direction:column;
@@ -24,6 +33,10 @@
     padding: .7rem;
     border-radius: .7rem;
     border:.01rem solid;
+  }
+  form{
+    display:flex;
+    flex-direction:column;
   }
   textarea{
     height: 100px;

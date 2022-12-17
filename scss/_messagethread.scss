@@ -2,7 +2,7 @@
   display:flex;
   align-items:center;
   flex-direction:column;
-  gap:.2rem;
+  gap:.7rem;
   textarea {
     height: 100px;
     width:100%;
@@ -11,6 +11,21 @@
   }
 
 }
+
+.messages{
+  .message-card {
+    display: flex;
+    flex-direction: column;
+    .message {
+      display: flex;
+      gap:.1rem;
+      .sender {
+        font-weight:bolder;
+      }
+    }
+  }
+}
+
 
 .buttoncontainer {
   display:flex;
