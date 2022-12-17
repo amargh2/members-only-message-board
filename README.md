@@ -2,6 +2,8 @@
 
 A message board with authentication, private messaging system, public posts and replies, and a search bar.
 
+![Project screenshot](/screenshot.png)
+
 ## About this project
 
 This is a message board web app modeled loosely after Reddit/Twitter and built with Express. I used Pug for the templating engine and handwritten SASS for the CSS.
