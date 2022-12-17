@@ -17,7 +17,7 @@ block content
     div  
       h2 #{currentUser.username}'s messages
     div.messages
-      if conversations[0] !== undefined  
+      if conversations[0].participants !== undefined  
         each conversation in conversations 
           .conversation.message-card #{conversation.messages.at(-1).from_user.username} + #{conversation.messages.at(-1).to_user.username}
             .message 
