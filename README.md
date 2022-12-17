@@ -1,3 +1,15 @@
 # Express Members Only Message Board
 
-A message board with anonymous messages until the user is authenticated. This app is part of The Odin Project, with the goal of learning authentication strategies with Passport.js.
+A message board with authentication, private messaging system, public posts and replies, and a search bar.
+
+## About this project
+
+This is a message board web app modeled loosely after Reddit/Twitter and built with Express. I used Pug for the templating engine and handwritten SASS for the CSS.
+
+The main goal of this project was to learn more about authentication and authorization, and to get better with routes, controllers, and database operations in general. 
+
+I decided to add a messaging system (currently just one-to-one communication) as an additional little challenge.
+
+## Check it out
+
+You can find it live and post your heart out over at [link goes here]. 

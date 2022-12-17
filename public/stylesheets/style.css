@@ -210,12 +210,11 @@ p {
   display: flex;
   flex-direction: column;
   border: 0.1rem black solid;
-  padding: 0.3rem;
   border-radius: 0.7rem;
   column-span: all;
   grid-column-start: 2;
   grid-column-end: 10;
-  padding: 0.1rem;
+  padding: 0.7rem;
 }
 @media (min-width: 992px) {
   .postform {
@@ -230,10 +229,11 @@ p {
 }
 .postform .newpost {
   display: flex;
-  justify-content: center;
+  place-items: center;
 }
 .postform .newpost p {
   font-size: larger;
+  font-weight: bolder;
 }
 .postform .field {
   flex-grow: 4;

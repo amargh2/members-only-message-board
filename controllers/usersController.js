@@ -66,9 +66,6 @@ exports.sendMessage = async (req, res) => {
       {participants:{$all:[author.id, recipient.id]}}
     )
     
-    console.log(conversationInProgress)
-
-    
     if (!conversationInProgress) {
       const message = new Message ({
         from_user: author.id,
