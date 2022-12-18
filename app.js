@@ -16,7 +16,7 @@ var app = express();
 
 //helmet
 
-app.use(helmet())
+//app.use(helmet())
 
 // passport setup
 
