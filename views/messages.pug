@@ -19,7 +19,7 @@ block content
     div.messages
       if conversations[0].messages[0]
         each conversation in conversations 
-          .conversation.message-card #{conversation.messages.at(-1).from_user.username} + #{conversation.messages.at(-1).to_user.username}
+          .conversation.message-card #{conversation.messages[0].from_user.username} + #{conversation.messages[0].to_user.username}
             .message 
               .from #{conversation.messages.at(-1).from_user.username}: #[a(href=`/user/${currentUser.username}/messages/${conversation.id}`) #{conversation.messages.at(-1).message}]
             .date #{conversation.messages.at(-1).date.toLocaleString()}
