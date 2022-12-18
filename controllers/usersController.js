@@ -106,6 +106,7 @@ exports.getMessages = async (req, res) => {
     mongoose.connect(process.env.MONGO_URI)
     const user = await User.findOne({username:req.params['username']})
     const conversations = await Conversation.find({participants: user.id}).populate({ path: 'messages', populate:[{path:'from_user', model:'User'},{path:'to_user', model:'User'}]})
+    console.log(conversations)
     res.render('messages', {conversations:conversations})
   } catch (err) {
     res.render('error', {error:err})
