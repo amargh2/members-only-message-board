@@ -12,6 +12,7 @@ const bcrypt = require('bcryptjs')
 var session = require('express-session');
 const { default: mongoose } = require('mongoose');
 const helmet = require('helmet');
+const compression = require('compression')
 var app = express();
 
 //helmet
@@ -68,6 +69,8 @@ app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
+//compression of routes
+app.use(compression())
 
 //ROUTES begin here
 app.use('/', indexRouter);
