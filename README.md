@@ -14,4 +14,4 @@ I decided to add a messaging system (currently just one-to-one communication) as
 
 ## Check it out
 
-You can find it live and post your heart out over at https://the-discourse.onrender.com/. 
+You can find it live and post your heart out over at https://the-discourse-m8mcv.ondigitalocean.app/
