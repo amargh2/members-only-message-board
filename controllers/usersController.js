@@ -1,16 +1,11 @@
 //require all the things
-var express = require('express');
-var router = express.Router();
 const mongoose = require('mongoose')
 const User = require('../models/user');
-const {body, validationResult, check} = require('express-validator');
 require('dotenv').config()
-const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 const Message = require('../models/message')
 const Conversation = require('../models/conversation');
-const conversation = require('../models/conversation');
 
 exports.registerUser = async function(req, res) {
 
@@ -46,6 +41,7 @@ exports.userProfile = async  (req, res) => {
     mongoose.connect(process.env.MONGO_URI)
     const user = await User.find({username:req.params['username']}).lean()
     const posts = await Post.find({author:user[0]._id})
+    const comments = await 
     res.render('profile', {user: user[0], posts:posts, title:`${user[0].username}'s profile`})
   } catch (err) {
     res.render('error', {error: err})
@@ -106,7 +102,6 @@ exports.getMessages = async (req, res) => {
     mongoose.connect(process.env.MONGO_URI)
     const user = await User.findOne({username:req.params['username']})
     const conversations = await Conversation.find({participants: user.id}).populate({ path: 'messages', populate:[{path:'from_user', model:'User'},{path:'to_user', model:'User'}]})
-    console.log(conversations)
     res.render('messages', {conversations:conversations})
   } catch (err) {
     res.render('error', {error:err})
