@@ -17,9 +17,11 @@ block content
     div  
       h2 #{currentUser.username}'s messages
     div.messages
-      if conversations[0].messages[0]
+      if conversations
         each conversation in conversations 
           .conversation.message-card #{conversation.messages[0].from_user.username} + #{conversation.messages[0].to_user.username}
             .message 
               .from #{conversation.messages.slice(-1)[0].from_user.username}: #[a(href=`/user/${currentUser.username}/messages/${conversation.id}`) #{conversation.messages.slice(-1)[0].message}]
             .date #{conversation.messages.slice(-1)[0].date.toLocaleString()}
+        else 
+          div No messages yet. Why not send one?
