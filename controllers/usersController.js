@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
 const Post = require('../models/post');
 const Message = require('../models/message')
 const Conversation = require('../models/conversation');
-
+const Reply = require('../models/reply')
 exports.registerUser = async function(req, res) {
 
       //No errors, so continue on with the request
@@ -41,8 +41,8 @@ exports.userProfile = async  (req, res) => {
     mongoose.connect(process.env.MONGO_URI)
     const user = await User.find({username:req.params['username']}).lean()
     const posts = await Post.find({author:user[0]._id})
-    const comments = await 
-    res.render('profile', {user: user[0], posts:posts, title:`${user[0].username}'s profile`})
+    const replies = await Reply.find({author:user[0]._id})
+    res.render('profile', {user: user[0], posts:posts, replies, title:`${user[0].username}'s profile`})
   } catch (err) {
     res.render('error', {error: err})
   }
@@ -125,7 +125,6 @@ exports.getMessageThread = async(req, res) => {
 exports.replyToMessage = async(req, res) => {
   try {
     mongoose.connect(process.env.MONGO_URI);
-    console.log('made it this far')
     const conversation = await Conversation.findById(req.params['messageid']);
     const sender = await User.findOne({username:req.params['username']})
     const recipient = await User.findById(req.body.recipient)

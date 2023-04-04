@@ -16,5 +16,17 @@ block content
                   form(action=post.url + '/delete', method='post')
                     div.buttons
                       input(type='submit' value='Delete Post').btn
-    if posts[0] === undefined
+    if replies[0] !== undefined 
+      div
+        h2 Reply history: 
+        each reply in replies 
+          .posts 
+            .post 
+              div=reply.message
+              if currentUser.username === user.username 
+                div
+                  form(action=post.url + '/delete', method='post')
+                    div.buttons
+                      input(type='submit' value='Delete Post').btn
+    if posts[0] === undefined && replies[0] === undefined
       div Looks like #{user.username} hasn't posted anything just yet.
